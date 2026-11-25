@@ -73,23 +73,21 @@ svg.i.s18{width:18px;height:18px}
 .tb-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
 
 /* Buttons */
-.icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--on-surface-variant);display:inline-grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
-.icon-btn:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+.icon-btn{width:48px;height:48px;border-radius:50%;border:0;background:transparent;color:var(--on-surface-variant);display:inline-grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
 .icon-btn:disabled{opacity:.38;cursor:default;background:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 24px;border-radius:20px;border:0;font:500 .875rem/1 var(--font);letter-spacing:.01em;cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn.has-icon{padding-left:16px}
 .btn-filled{background:var(--primary);color:var(--on-primary)}
-.btn-filled:hover{box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .btn-tonal{background:var(--secondary-container);color:var(--on-secondary-container)}
-.btn-tonal:hover{background:color-mix(in srgb,var(--on-secondary-container) 8%,var(--secondary-container))}
 .btn-outlined{background:transparent;color:var(--primary);border:1px solid var(--outline)}
-.btn-outlined:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
 .btn-text{background:transparent;color:var(--primary);padding:0 12px}
-.btn-text:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
 .btn-danger{background:var(--error);color:var(--on-error)}
 
 /* Segmented button (language) */
-.seg{display:inline-flex;border:1px solid var(--outline);border-radius:20px;overflow:hidden;height:40px}
+.seg{display:inline-flex;border:1px solid var(--outline);border-radius:20px;height:40px}
+.seg button:first-child{border-radius:19px 0 0 19px}.seg button:last-child{border-radius:0 19px 19px 0}
+.btn,.seg button{position:relative}
+.btn::before,.seg button::before{content:"";position:absolute;left:0;right:0;top:-4px;bottom:-4px}
 .seg button{border:0;background:transparent;color:var(--on-surface);font:500 .875rem/1 var(--font);padding:0 12px;min-width:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
 .seg button+button{border-left:1px solid var(--outline)}
 .seg button[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container)}
@@ -107,14 +105,21 @@ h1{font-size:clamp(2rem,7vw,2.75rem);line-height:1.1;font-weight:600;letter-spac
 .lede{font-size:1.0625rem;color:var(--on-surface-variant);margin:0;max-width:46ch}
 .links{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .link{display:grid;grid-template-columns:48px 1fr 24px;align-items:center;gap:16px;padding:16px;border-radius:16px;background:var(--surface-low);border:1px solid var(--outline-variant);color:inherit;text-decoration:none;transition:background .15s,border-color .15s}
-.link:hover{background:var(--surface-container);border-color:var(--outline)}
 .link:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
 .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container)}
 .link.alt .ico{background:var(--tertiary-container);color:var(--on-tertiary-container)}
 .link b{display:block;font-size:1.125rem;font-weight:600;line-height:1.3}
 .link small{display:block;font-size:.875rem;color:var(--on-surface-variant);margin-top:2px}
 .link .go{color:var(--on-surface-variant)}
-</style>
+
+@media (hover:hover){
+.icon-btn:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+.btn-filled:hover{box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.btn-tonal:hover{background:color-mix(in srgb,var(--on-secondary-container) 8%,var(--secondary-container))}
+.btn-outlined:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.btn-text:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.link:hover{background:var(--surface-container);border-color:var(--outline)}
+}</style>
 </head>
 <body>
 <header class="topbar gutter">

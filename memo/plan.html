@@ -73,23 +73,21 @@ svg.i.s18{width:18px;height:18px}
 .tb-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
 
 /* Buttons */
-.icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--on-surface-variant);display:inline-grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
-.icon-btn:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+.icon-btn{width:48px;height:48px;border-radius:50%;border:0;background:transparent;color:var(--on-surface-variant);display:inline-grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
 .icon-btn:disabled{opacity:.38;cursor:default;background:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 24px;border-radius:20px;border:0;font:500 .875rem/1 var(--font);letter-spacing:.01em;cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn.has-icon{padding-left:16px}
 .btn-filled{background:var(--primary);color:var(--on-primary)}
-.btn-filled:hover{box-shadow:0 1px 3px rgba(0,0,0,.25)}
 .btn-tonal{background:var(--secondary-container);color:var(--on-secondary-container)}
-.btn-tonal:hover{background:color-mix(in srgb,var(--on-secondary-container) 8%,var(--secondary-container))}
 .btn-outlined{background:transparent;color:var(--primary);border:1px solid var(--outline)}
-.btn-outlined:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
 .btn-text{background:transparent;color:var(--primary);padding:0 12px}
-.btn-text:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
 .btn-danger{background:var(--error);color:var(--on-error)}
 
 /* Segmented button (language) */
-.seg{display:inline-flex;border:1px solid var(--outline);border-radius:20px;overflow:hidden;height:40px}
+.seg{display:inline-flex;border:1px solid var(--outline);border-radius:20px;height:40px}
+.seg button:first-child{border-radius:19px 0 0 19px}.seg button:last-child{border-radius:0 19px 19px 0}
+.btn,.seg button{position:relative}
+.btn::before,.seg button::before{content:"";position:absolute;left:0;right:0;top:-4px;bottom:-4px}
 .seg button{border:0;background:transparent;color:var(--on-surface);font:500 .875rem/1 var(--font);padding:0 12px;min-width:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
 .seg button+button{border-left:1px solid var(--outline)}
 .seg button[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container)}
@@ -119,7 +117,6 @@ p{margin:0;max-width:68ch}
 .ps[open]{background:var(--card);border-color:var(--outline)}
 .ps summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:32px 1fr 24px;gap:14px;align-items:start;padding:14px 14px 14px 16px;border-radius:16px}
 .ps summary::-webkit-details-marker{display:none}
-.ps summary:hover{background:color-mix(in srgb,var(--on-surface) 5%,transparent)}
 .ps-n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container);font:500 .875rem/1 var(--mono)}
 .ps-n:empty{background:var(--surface-high)}
 .ps-t{display:grid;gap:4px;min-width:0}
@@ -164,7 +161,15 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowra
 .steps li{counter-increment:s;display:grid;grid-template-columns:2rem 1fr;gap:.6rem}
 .steps li::before{content:counter(s);font-family:var(--mono);font-weight:500;color:var(--on-secondary-container);background:var(--secondary-container);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;font-size:.8rem}
 @media (max-width:520px){.kv{grid-template-columns:1fr}.kv dt{padding-top:.4rem}}
-</style>
+
+@media (hover:hover){
+.icon-btn:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+.btn-filled:hover{box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.btn-tonal:hover{background:color-mix(in srgb,var(--on-secondary-container) 8%,var(--secondary-container))}
+.btn-outlined:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.btn-text:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.ps summary:hover{background:color-mix(in srgb,var(--on-surface) 5%,transparent)}
+}</style>
 </head>
 <body>
 <header class="topbar gutter">
