@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plan de crecimiento de Memo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&family=Roboto+Mono:wght@400;500&display=swap">
+<script>
+(function(){var d=document.documentElement;try{var t=localStorage.getItem('memo.theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);var l=localStorage.getItem('memo.lang');d.lang=(l==='en'?'en':'es');}catch(e){d.lang='es';}})();
+</script>
+<style>
+:root{
+  --primary:#006a65; --on-primary:#ffffff; --primary-container:#9cf2eb; --on-primary-container:#00201e;
+  --secondary:#4a6361; --secondary-container:#cce8e5; --on-secondary-container:#051f1e;
+  --tertiary:#48617a; --tertiary-container:#cfe5ff; --on-tertiary-container:#001d33;
+  --surface:#f4fbf9; --surface-lowest:#ffffff; --surface-low:#eff5f3; --surface-container:#e9efed;
+  --surface-high:#e3eae8; --surface-highest:#dde4e2;
+  --on-surface:#161d1c; --on-surface-variant:#3f4947; --outline:#6f7977; --outline-variant:#bec9c6;
+  --error:#ba1a1a; --on-error:#ffffff; --error-container:#ffdad6; --on-error-container:#410002;
+  --warn:#7a5900; --warn-container:#ffdea0; --on-warn-container:#261a00;
+  --good:#2e6b2f; --good-container:#c3efb8; --on-good-container:#002204;
+  --inverse-surface:#2b3231; --inverse-on-surface:#ecf2f0; --inverse-primary:#80d5cf;
+  --card:#ffffff;
+  --font:"Roboto Flex","Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Roboto Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --primary:#80d5cf; --on-primary:#003734; --primary-container:#00504c; --on-primary-container:#9cf2eb;
+  --secondary:#b0ccc9; --secondary-container:#324b49; --on-secondary-container:#cce8e5;
+  --tertiary:#b0c9e5; --tertiary-container:#304a62; --on-tertiary-container:#cfe5ff;
+  --surface:#0e1514; --surface-lowest:#090f0f; --surface-low:#161d1c; --surface-container:#1a2120;
+  --surface-high:#252b2a; --surface-highest:#2f3635;
+  --on-surface:#dde4e2; --on-surface-variant:#bec9c6; --outline:#899390; --outline-variant:#3f4947;
+  --error:#ffb4ab; --on-error:#690005; --error-container:#93000a; --on-error-container:#ffdad6;
+  --warn:#f5bf48; --warn-container:#5c4200; --on-warn-container:#ffdea0;
+  --good:#a8d39d; --good-container:#14501a; --on-good-container:#c3efb8;
+  --inverse-surface:#dde4e2; --inverse-on-surface:#2b3231; --inverse-primary:#006a65;
+  --card:#1a2120; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --primary:#80d5cf; --on-primary:#003734; --primary-container:#00504c; --on-primary-container:#9cf2eb;
+  --secondary:#b0ccc9; --secondary-container:#324b49; --on-secondary-container:#cce8e5;
+  --tertiary:#b0c9e5; --tertiary-container:#304a62; --on-tertiary-container:#cfe5ff;
+  --surface:#0e1514; --surface-lowest:#090f0f; --surface-low:#161d1c; --surface-container:#1a2120;
+  --surface-high:#252b2a; --surface-highest:#2f3635;
+  --on-surface:#dde4e2; --on-surface-variant:#bec9c6; --outline:#899390; --outline-variant:#3f4947;
+  --error:#ffb4ab; --on-error:#690005; --error-container:#93000a; --on-error-container:#ffdad6;
+  --warn:#f5bf48; --warn-container:#5c4200; --on-warn-container:#ffdea0;
+  --good:#a8d39d; --good-container:#14501a; --on-good-container:#c3efb8;
+  --inverse-surface:#dde4e2; --inverse-on-surface:#2b3231; --inverse-primary:#006a65;
+  --card:#1a2120; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[hidden]{display:none!important}
+html:not([lang="en"]) .en{display:none!important}
+html[lang="en"] .es{display:none!important}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+svg.i{width:24px;height:24px;fill:currentColor;flex:0 0 auto}
+svg.i.s18{width:18px;height:18px}
+
+/* Top app bar */
+.topbar{background:var(--surface);z-index:20}
+.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:4px;min-height:64px}
+.tb-title{flex:1;min-width:0;font-size:1.25rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 4px}
+.tb-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+
+/* Buttons */
+.icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--on-surface-variant);display:inline-grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
+.icon-btn:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+.icon-btn:disabled{opacity:.38;cursor:default;background:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 24px;border-radius:20px;border:0;font:500 .875rem/1 var(--font);letter-spacing:.01em;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.has-icon{padding-left:16px}
+.btn-filled{background:var(--primary);color:var(--on-primary)}
+.btn-filled:hover{box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.btn-tonal{background:var(--secondary-container);color:var(--on-secondary-container)}
+.btn-tonal:hover{background:color-mix(in srgb,var(--on-secondary-container) 8%,var(--secondary-container))}
+.btn-outlined{background:transparent;color:var(--primary);border:1px solid var(--outline)}
+.btn-outlined:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.btn-text{background:transparent;color:var(--primary);padding:0 12px}
+.btn-text:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.btn-danger{background:var(--error);color:var(--on-error)}
+
+/* Segmented button (language) */
+.seg{display:inline-flex;border:1px solid var(--outline);border-radius:20px;overflow:hidden;height:40px}
+.seg button{border:0;background:transparent;color:var(--on-surface);font:500 .875rem/1 var(--font);padding:0 12px;min-width:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+.seg button+button{border-left:1px solid var(--outline)}
+.seg button[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container)}
+.seg button svg{display:none}
+.seg button[aria-pressed="true"] svg{display:block}
+
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+
+/* Layout: the plan's original single reading column, re-skinned with Material 3 tokens */
+:root{
+  --bg:var(--surface); --ink:var(--on-surface); --muted:var(--on-surface-variant); --line:var(--outline-variant);
+  --lagoon:var(--primary); --lagoon-soft:var(--primary-container); --cenote:var(--primary); --jungle:var(--good);
+  --flag:var(--warn); --flag-soft:var(--warn-container); --ok:var(--good); --ok-soft:var(--good-container);
+  --display:var(--font); --body:var(--font);
+}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--font);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:600;letter-spacing:-.015em;font-variation-settings:"opsz" 96}
+h2{font-size:clamp(1.5rem,4vw,1.9rem);font-weight:600}
+h3{font-size:1.125rem;font-weight:600}
+p{margin:0;max-width:68ch}
+a{color:var(--lagoon)}
+.eyebrow{font:500 .75rem/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
+header.hero{padding-block:1.5rem 2rem;background:linear-gradient(170deg,var(--surface-container),var(--bg) 75%);border-bottom:1px solid var(--line)}
+header.hero .wrap{display:grid;gap:.9rem}
+.lede{font-size:1.1rem;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.85rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface-container)}
+.topbar{background:var(--surface-container)}
+nav.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface-container);border-bottom:1px solid var(--line)}
+nav.chips .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.chip{flex:0 0 auto;display:inline-flex;align-items:center;height:32px;font-size:.875rem;font-weight:500;text-decoration:none;color:var(--on-surface-variant);border:1px solid var(--outline);border-radius:8px;padding:0 12px;background:transparent}
+.chip:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+main section{padding-block:2.5rem;border-bottom:1px solid var(--line);scroll-margin-top:3.75rem}
+main section .wrap{display:grid;gap:1.1rem}
+.sec-head{display:grid;gap:.35rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;display:grid;gap:.5rem;align-content:start;min-width:0}
+ul,ol{margin:0;padding-left:1.2rem;display:grid;gap:.35rem}
+li{max-width:66ch}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:560px}
+th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface-low)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pkg{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.25rem;display:grid;gap:.75rem;min-width:0}
+.pkg-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;align-items:baseline}
+.tag{font:500 .75rem/1.4 var(--font);padding:.2rem .6rem;border-radius:8px;background:var(--secondary-container);color:var(--on-secondary-container);white-space:nowrap}
+.kv{display:grid;grid-template-columns:8.5rem 1fr;gap:.4rem .9rem;font-size:.95rem}
+.kv dt{font-weight:600;color:var(--muted);font-size:.85rem;padding-top:.1rem}
+.kv dd{margin:0;min-width:0}
+.price{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.92em}
+.flag{background:var(--flag-soft);color:var(--on-warn-container);padding:.8rem 1rem;border-radius:12px;font-size:.92rem}
+.flag b{color:inherit}
+.good{background:var(--ok-soft);color:var(--on-good-container);padding:.8rem 1rem;border-radius:12px;font-size:.92rem}
+.pill{display:inline-block;font:500 .7rem/1.5 var(--font);padding:0 .5rem;border-radius:8px;border:1px solid currentColor;margin-right:.35rem;white-space:nowrap}
+.p-info{color:var(--primary)}.p-plan{color:var(--good)}.p-book{color:var(--warn)}
+.blog li{list-style:none;margin-left:-1.2rem;padding:.55rem 0;border-bottom:1px dashed var(--line)}
+.blog li:last-child{border-bottom:0}
+.small{font-size:.85rem;color:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2rem 1fr;gap:.6rem}
+.steps li::before{content:counter(s);font-family:var(--mono);font-weight:500;color:var(--on-primary-container);background:var(--primary-container);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;font-size:.8rem}
+footer{padding-block:2rem 3rem;font-size:.85rem;color:var(--muted)}
+footer ul{gap:.25rem}
+@media (max-width:520px){.kv{grid-template-columns:1fr}.kv dt{padding-top:.4rem}}
+</style>
+</head>
+<body>
+<header class="topbar gutter">
+  <div class="topbar-in">
+    <a class="icon-btn" href="./" aria-label="Inicio" data-aria-es="Inicio" data-aria-en="Home"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></a>
+    <p class="tb-title"><span class="es">Plan de crecimiento</span><span class="en">Growth plan</span></p>
+    <div class="tb-actions">
+      <div class="seg" role="group" aria-label="Idioma / Language">
+        <button type="button" id="lang-es" data-lang="es" aria-pressed="true"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>ES</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Cambiar tema"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="es" lang="es">
+<header class="hero" lang="es">
+  <div class="wrap">
+    <span class="eyebrow">Plan de crecimiento · Primero Puerto Aventuras</span>
+    <h1>Memo Tours and Adventures: hacia dónde crecer</h1>
+    <p class="lede">Un plan de trabajo para que Guillermo ("Memo") sume paquetes, tours a la medida y servicios de concierge local al negocio de tours y traslados que ya tiene, empezando en Puerto Aventuras.</p>
+    <div class="meta">
+      <span><b>Preparado</b> 25 de noviembre de 2026</span>
+      <span><b>Basado en</b> su sitio web, su perfil de TripAdvisor, precios públicos y páginas oficiales consultadas ese día</span>
+      <span><b>No revisado</b> su Instagram (la página bloquea la lectura automática)</span>
+    </div>
+  </div>
+</header>
+
+<nav class="chips" aria-label="Secciones">
+  <div class="wrap">
+    <a class="chip" href="#hoy">Hoy</a>
+    <a class="chip" href="#paquetes">Paquetes</a>
+    <a class="chip" href="#concierge-es">A la medida y concierge</a>
+    <a class="chip" href="#blog-es">Plan de blog</a>
+    <a class="chip" href="#mejoras">Mejoras al sitio</a>
+    <a class="chip" href="#riesgos">Riesgos</a>
+    <a class="chip" href="#primeros30">Primeros 30 días</a>
+    <a class="chip" href="#fuentes">Fuentes</a>
+  </div>
+</nav>
+
+<main lang="es">
+
+<section id="hoy">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">1 · Punto de partida</span>
+      <h2>Cómo está el negocio hoy</h2>
+      <p>Memo opera un negocio bilingüe (inglés y español) de tours de un día y traslados desde el aeropuerto que cubre Playa del Carmen, Puerto Aventuras y Tulum. Los clientes reservan pidiendo una cotización, sobre todo por WhatsApp, y el sitio promete respuesta en menos de 24 horas.</p>
+    </div>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Oferta en su sitio</th><th>Duración</th><th>Compartido, por persona (mín. 4)</th><th>Privado para pareja</th><th>Niños</th></tr></thead>
+        <tbody>
+          <tr><td>Snorkel con tortugas y cenote</td><td>4 h</td><td class="n">1,620</td><td class="n">4,140</td><td class="n">1,260 (menores de 8)</td></tr>
+          <tr><td>Cenotes escondidos (Hidden Cenotes Adventure)</td><td>4 h</td><td class="n">1,980</td><td class="n">4,500</td><td class="n">1,530 (menores de 8)</td></tr>
+          <tr><td>Ruinas mayas de Tulum y cenote</td><td>5 h</td><td class="n">2,340</td><td class="n">5,400</td><td class="n">1,800 (menores de 7)</td></tr>
+          <tr><td>Ruinas de Cobá y pueblo maya</td><td>9 h</td><td class="n">2,520</td><td class="n">6,300</td><td class="n">2,160 (menores de 8)</td></tr>
+          <tr><td>Ruinas de Muyil y ríos lentos de Sian Ka'an</td><td>9 h</td><td class="n">2,520</td><td class="n">6,300</td><td class="n">1,980 (menores de 7)</td></tr>
+          <tr><td>Cenotes Lovers</td><td>9 h</td><td class="n">2,880</td><td class="n">8,100</td><td class="n">2,700 (menores de 8)</td></tr>
+          <tr><td>Chichén Itzá, Valladolid y cenote</td><td>11 h</td><td class="n">2,880</td><td class="n">9,900</td><td class="n">2,340 (menores de 8)</td></tr>
+          <tr><td>Renta de yate y catamarán en Puerto Aventuras</td><td>Medio día o día completo</td><td colspan="3">Privado, cualquier tamaño de grupo. Solo por cotización, sin precio publicado.</td></tr>
+          <tr><td>Traslados al aeropuerto de Cancún</td><td>Sencillo</td><td colspan="3">Solo por cotización. El sitio dice que los vehículos tienen los permisos del aeropuerto y del estado.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">Todos los precios en MXN, tal como aparecían en memotoursadventures.com el 25 de noviembre de 2026.</p>
+
+    <div class="grid2">
+      <div class="box">
+        <h3>Lo que ya funciona</h3>
+        <ul>
+          <li><b>Reputación:</b> 4.9 de 5 en TripAdvisor con 162 opiniones, la más reciente del 16 de noviembre de 2026.</li>
+          <li><b>Trato personal:</b> los clientes elogian una y otra vez los tours armados según lo que pidieron, guías que cuentan muy bien la historia maya, vehículos limpios y recogidas puntuales.</li>
+          <li><b>Clientes que regresan:</b> varias opiniones dicen que volvieron a reservar o que ahora le llaman para pedirle ayuda local. Ese es el negocio de concierge, que ya existe de manera informal.</li>
+          <li><b>Ya hay precios privados:</b> cada tour tiene tarifa privada para parejas, así que los paquetes pueden partir de precios que ya probó.</li>
+          <li><b>Una base en Puerto Aventuras:</b> la renta en la marina es la única oferta que sale desde Puerto Aventuras.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Lo que falta</h3>
+        <ul>
+          <li>No hay paquetes que combinen tours, barcos, comida y traslados.</li>
+          <li>Casi nada está pensado para Puerto Aventuras. La mayoría de los tours llevan a los clientes a Tulum, Cobá o Chichén Itzá.</li>
+          <li>No hay oferta de pesca, ni precio "desde" para la renta de barco.</li>
+          <li>No hay política de anticipo, cancelación, clima ni formas de pago en ninguna parte del sitio.</li>
+          <li>Las opiniones no aparecen en el sitio, y TripAdvisor lo clasifica en transporte (lugar 15 de 279), no en tours.</li>
+          <li>La sección "sobre nosotros" son dos frases, sin foto de Memo, y no aparece ningún número de registro turístico.</li>
+          <li>El blog tiene tres entradas; la más reciente es de marzo de 2026.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="paquetes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">2 · Paquetes</span>
+      <h2>Paquetes que salen de Puerto Aventuras</h2>
+      <p>Cada paquete aprovecha tours y socios que ya tiene, y se queda a unos 30 minutos de Puerto Aventuras cuando se puede. Los precios de referencia vienen de sus propias tarifas y de anuncios públicos consultados el 25 de noviembre de 2026.</p>
+    </div>
+    <div class="flag"><b>Los precios son puntos de partida para probar.</b> No se han comparado con los costos reales de Memo (guías, gasolina, socios con barco, entradas) ni con sus márgenes. Las cifras en USD son las que mostraban los anuncios; no se aplicó tipo de cambio.</div>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Parejas y momentos especiales</h3><span class="tag">aniversarios · propuestas · lunas de miel</span></div>
+      <dl class="kv">
+        <dt>El día</dt><dd>Mañana privada en un cenote tranquilo cerca de Puerto Aventuras, una comida local sin prisa que Memo elige, y luego un paseo privado al atardecer desde la Marina Puerto Aventuras. Extras opcionales: fotógrafo, flores o pastel a bordo, y una reservación para cenar que él les consigue.</dd>
+        <dt>Referencia</dt><dd>Su tarifa para pareja en Cenotes escondidos es <span class="price">4,500 MXN</span>. Los barcos privados pequeños que salen de Puerto Aventuras se anuncian en <span class="price">US$550 a 675</span> por 4 horas, más una tarifa de muelle de <span class="price">US$10 a 15</span> por persona (anuncios de pesca).</dd>
+        <dt>Sugerencia</dt><dd>Venderlo a un solo precio: la parte en tierra, más la cotización del barco, más una cuota fija por la planeación y los extras. Cotizar los extras por separado para que el precio base sea fácil de comparar.</dd>
+        <dt>Por qué se vende</dt><dd>Las parejas que celebran algo importante quieren sentir que todo está organizado, no solo reservado. Una sola persona local que se encarga de todo es justo lo que sus clientes ya elogian.</dd>
+      </dl>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Familias con niños pequeños</h3><span class="tag">trayectos cortos · respetan la siesta</span></div>
+      <dl class="kv">
+        <dt>El día</dt><dd>Solo medios días, de regreso a primera hora de la tarde. Ejemplo: tortugas en Akumal por la mañana y luego un cenote tranquilo con zonas poco profundas y chalecos salvavidas. Cenote Cristalino y Cenote Azul están a pocos minutos en coche de Puerto Aventuras, y la playa de Xpu-Ha a unos 12 minutos.</dd>
+        <dt>Referencia</dt><dd>Su tour de tortugas para dos adultos y dos niños menores de 8 con tarifa compartida suma <span class="price">5,760 MXN</span>. La tarifa privada para pareja es de <span class="price">4,140 MXN</span>.</dd>
+        <dt>Sugerencia</dt><dd>Un precio privado familiar para hasta dos adultos y dos niños, de unos <span class="price">6,500 a 7,500 MXN</span>, con sillas para auto a solicitud y los niños adicionales a su tarifa de niño.</dd>
+        <dt>Por qué se vende</dt><dd>Los papás pagan más por evitar trayectos largos, camionetas compartidas y horarios fijos. Puerto Aventuras tiene opciones cercanas que lo hacen fácil.</dd>
+      </dl>
+      <p class="small">Entradas a cenotes vistas en opiniones de Google: unos 200 MXN en Cristalino y 150 MXN en Azul (solo efectivo en Azul). Confirmar en la entrada. Las familias también preguntarán por el delfinario de la marina. Algunos clientes evitan los programas con delfines en cautiverio, así que conviene tener lista como alternativa la opción de tortugas en su hábitat.</p>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Pesca desde la Marina Puerto Aventuras</h3><span class="tag">en alianza con un capitán</span></div>
+      <dl class="kv">
+        <dt>El día</dt><dd>Recogida en el hotel o condominio, de 4 a 6 horas de pesca con un capitán de confianza de Memo, y luego un restaurante que cocina lo que pescaron para la comida. Él aporta la recogida, la parada para comer y la atención.</dd>
+        <dt>Referencia</dt><dd>Salidas de pesca en Puerto Aventuras anunciadas el 25 de noviembre de 2026: barco de 32 pies, hasta 6 personas, <span class="price">US$550</span> por 4 h. Hasta 10 personas, <span class="price">US$675 / 875 / 1,075</span> por 4 / 6 / 8 h. Barco de 50 pies, hasta 11, <span class="price">US$1,700</span> por 4 h. Aparte se pagan <span class="price">US$10 a 15</span> por persona de tarifa de muelle, en efectivo.</dd>
+        <dt>Sugerencia</dt><dd>La tarifa del barco del socio más su recogida y la comida, vendido a un solo precio. Para empezar, no debería comprar un barco.</dd>
+        <dt>Por qué se vende</dt><dd>La pesca ya se vende en sitios de reservas, así que la demanda existe. Lo que esos anuncios no tienen es la atención de puerta a puerta y la comida, y ahí Memo se distingue.</dd>
+      </dl>
+      <div class="flag"><b>Permisos:</b> la página de un intermediario (verificada en septiembre de 2026) dice que cada persona a bordo necesita su propio permiso de pesca deportiva, incluidos el capitán y la tripulación, y que hay multas por pescar sin él. Los anuncios de pesca dicen que los permisos están incluidos. Confirmarlo con la autoridad oficial de pesca (CONAPESCA) y con cada capitán socio antes de vender.</div>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Grupos y celebraciones</h3><span class="tag">cumpleaños · reuniones · invitados de boda</span></div>
+      <dl class="kv">
+        <dt>El día</dt><dd>Catamarán privado desde la Marina Puerto Aventuras con snorkel, comida y barra libre, más traslados del grupo al aeropuerto y un día opcional de cenote o ruinas.</dd>
+        <dt>Referencia</dt><dd>Un catamarán privado de 65 pies desde la Marina Puerto Aventuras se anuncia en <span class="price">US$2,400</span> para 1 a 10 personas con comida BBQ, más <span class="price">US$50</span> por persona adicional y <span class="price">US$20</span> por persona de tarifa de muelle.</dd>
+        <dt>Sugerencia</dt><dd>Precio por grupo con rangos claros de número de personas, un anticipo para apartar la fecha y los traslados incluidos con un pequeño descuento.</dd>
+        <dt>Por qué se vende</dt><dd>Quien organiza un grupo quiere un solo contacto para barcos, camionetas y horarios. Una opinión reciente elogió sus traslados para un grupo de 12.</dd>
+      </dl>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Día de llegada y estancias largas</h3><span class="tag">huéspedes de condominios y villas</span></div>
+      <dl class="kv">
+        <dt>Día de llegada</dt><dd>Recogida en el aeropuerto, una parada para el súper y efectivo, y un breve recorrido por la zona (dónde nadar, comer y comprar agua). Se vende como mejora del traslado.</dd>
+        <dt>Estancia larga</dt><dd>Un plan mensual de "contacto local" para quienes se quedan semanas o meses: reservas con prioridad, un número fijo de solicitudes de planeación y presentaciones con su red.</dd>
+        <dt>Referencia</dt><dd>No se encontró ninguna. Fijar el precio después de unas cuantas pruebas con clientes anteriores.</dd>
+        <dt>Por qué se vende</dt><dd>Los huéspedes de condominios no tienen concierge de hotel. Los clientes que ya le llaman para pedir ayuda demuestran que hay demanda.</dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section id="concierge-es">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">3 · A la medida y concierge</span>
+      <h2>Convertir lo que sabe y a quién conoce en servicios</h2>
+      <p>Las opiniones muestran que sus clientes ya valoran los días personales y hechos a la medida. Estos servicios lo hacen oficial y cobrado.</p>
+    </div>
+    <div class="grid2">
+      <div class="box">
+        <h3>Tours a la medida</h3>
+        <ul>
+          <li>Cinco preguntas iniciales por WhatsApp: fechas, grupo y edades, ritmo, lo imperdible, presupuesto.</li>
+          <li>Precio por partes: tarifa diaria del guía, vehículo, entradas y luego su margen. Escribirlo una vez para que las cotizaciones sean consistentes.</li>
+          <li>Ofrecer tres "puntos de partida" ya armados para que nadie empiece desde cero.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Recomendaciones y reservas en restaurantes</h3>
+        <ul>
+          <li>"La lista de Memo" por pueblo y por ocasión: en familia, cita romántica, mariscos, donde comen los locales.</li>
+          <li>Ayuda con reservaciones como parte de los paquetes o del plan de estancia larga.</li>
+          <li>Si un restaurante le paga por recomendar, decírselo a los clientes. Las comisiones ocultas dañan la confianza si salen a la luz.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Rentas</h3>
+        <ul>
+          <li>Recomendar a los clientes agencias de renta, dueños de barcos y rentas de autos o carritos de golf de confianza, en lugar de manejar él mismo las rentas.</li>
+          <li>Actuar como agente de rentas puede traer obligaciones legales y fiscales. Eso no se verificó; consultar a un contador antes de hacer algo más que recomendar.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Gente local</h3>
+        <ul>
+          <li>Capitanes, chefs privados, fotógrafos, anfitriones de pueblos mayas, organizadores de eventos.</li>
+          <li>Un acuerdo sencillo por escrito con cada uno: precio, quién le paga a quién y qué pasa si cancelan.</li>
+          <li>Presentar a los socios en el blog solo con su permiso.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flag"><b>Contraargumento:</b> cualquier mal día de un socio termina en las opiniones de Memo. Empezar con pocas personas por las que él respondería personalmente, y sumar más solo después de que los clientes las califiquen bien.</div>
+  </div>
+</section>
+
+<section id="blog-es">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">4 · Plan de blog</span>
+      <h2>Artículos que responden lo que buscan los viajeros antes de reservar</h2>
+      <p>Cada entrada debe enlazar a un paquete y terminar con el botón de WhatsApp. Dos entradas al mes es realista para una sola persona.</p>
+      <p class="small"><span class="pill p-info">Investigación</span>primeras preguntas <span class="pill p-plan">Planeación</span>comparando opciones <span class="pill p-book">Listo para reservar</span>cerca de comprar</p>
+    </div>
+
+    <div class="grid2">
+      <div class="box">
+        <h3>Seguridad en México</h3>
+        <ul class="blog">
+          <li><span class="pill p-info">Investigación</span>¿Es seguro Puerto Aventuras? La respuesta directa de un guía local</li>
+          <li><span class="pill p-info">Investigación</span>Qué dice la alerta de viaje de EE. UU. sobre Quintana Roo, en palabras sencillas</li>
+          <li><span class="pill p-plan">Planeación</span>Llegar al aeropuerto de Cancún: cómo ir a tu hotel sin sorpresas con los taxis</li>
+          <li><span class="pill p-plan">Planeación</span>Cenotes con niños pequeños: chalecos, profundidades y cuáles son buenos para nadadores chicos</li>
+          <li><span class="pill p-info">Investigación</span>El Visitax: qué es y cómo pagarlo</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Lugares para explorar</h3>
+        <ul class="blog">
+          <li><span class="pill p-plan">Planeación</span>Cenotes a pocos minutos de Puerto Aventuras</li>
+          <li><span class="pill p-plan">Planeación</span>¿Xpu-Ha o Akumal? Qué día de playa le queda a tu familia</li>
+          <li><span class="pill p-plan">Planeación</span>¿Tulum, Cobá o Chichén Itzá? Cuáles ruinas elegir para tu viaje</li>
+          <li><span class="pill p-info">Investigación</span>Puerto Aventuras sin coche: qué puedes hacer</li>
+          <li><span class="pill p-book">Listo para reservar</span>Pesca desde Puerto Aventuras: cuánto cuesta una salida y qué incluye</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Gente local</h3>
+        <ul class="blog">
+          <li><span class="pill p-info">Investigación</span>Conoce a Memo: cómo empezó un guía local</li>
+          <li><span class="pill p-info">Investigación</span>Una mañana en un pueblo maya: a quién conoces y qué apoya tu visita</li>
+          <li><span class="pill p-plan">Planeación</span>Un día con un capitán de pesca de Puerto Aventuras</li>
+          <li><span class="pill p-plan">Planeación</span>Dónde come Memo en Puerto Aventuras y Akumal</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ocasiones</h3>
+        <ul class="blog">
+          <li><span class="pill p-book">Listo para reservar</span>Ideas de aniversario en la Riviera Maya, planeadas por un local</li>
+          <li><span class="pill p-book">Listo para reservar</span>Qué hacer con niños pequeños en Puerto Aventuras</li>
+          <li><span class="pill p-book">Listo para reservar</span>Cómo organizar un viaje en grupo a Puerto Aventuras: barcos, camionetas y horarios</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="good"><b>Para las entradas de seguridad:</b> el Departamento de Estado de EE. UU. tiene a México en Nivel 2, "Exercise increased caution" (mayor precaución), emitida el 29 de mayo de 2026. Quintana Roo también está en mayor precaución, con el consejo de estar atento al entorno de noche y quedarse en calles bien iluminadas y zonas turísticas. El Visitax, el impuesto estatal al turista, es obligatorio para visitantes extranjeros. Citar estos datos con fecha y enlace, y volver a verificarlos antes de cada entrada.</div>
+    <div class="flag"><b>Contraargumentos:</b> las entradas nuevas de un blog suelen tardar meses en atraer búsquedas, mientras que pedir opiniones en Google y TripAdvisor a clientes contentos da resultados antes. Las entradas sobre seguridad deben reportar lo que dicen las fuentes oficiales y nunca prometer que un lugar es seguro.</div>
+  </div>
+</section>
+
+<section id="mejoras">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">5 · Mejoras rápidas al sitio</span>
+      <h2>Cambios pequeños, más o menos en orden de impacto</h2>
+    </div>
+    <ol class="steps">
+      <li><span><b>Mostrar las opiniones.</b> Poner la calificación de 4.9 y tres frases cortas de clientes en la página de inicio, con enlace a TripAdvisor. Crear un Perfil de Empresa en Google y pedir a los clientes recientes que dejen su opinión ahí también.</span></li>
+      <li><span><b>Pasar el perfil de TripAdvisor a tours.</b> Hoy aparece en transporte, donde quien busca tours no lo ve. Preguntarle a TripAdvisor si se puede cambiar la categoría.</span></li>
+      <li><span><b>Agregar políticas.</b> Anticipo, cancelación, clima, edades de niños, formas de pago y qué no está incluido (propinas, efectivo para tarifas de muelle).</span></li>
+      <li><span><b>Conoce a Memo.</b> Una foto, años como guía, idiomas, su credencial de guía y su número de registro turístico si los tiene.</span></li>
+      <li><span><b>Una página de paquetes y una de Puerto Aventuras.</b> Una página cada una, con enlace a WhatsApp y el nombre del paquete ya escrito en el mensaje.</span></li>
+      <li><span><b>Ponerle precio "desde" a la renta de barco.</b> Un barco solo por cotización pierde a quienes están comparando anuncios que sí muestran precio.</span></li>
+      <li><span><b>Corregir errores pequeños.</b> "Enlgish" en la página de Chichén Itzá, y las edades de niños que cambian entre "menores de 7" y "menores de 8".</span></li>
+      <li><span><b>Anticipo en línea, opcional.</b> Un enlace de pago para apartar la fecha. Luego hay que manejar comisiones de tarjeta y reembolsos, así que conviene pensarlo antes.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="riesgos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">6 · Riesgos y contraargumentos</span>
+      <h2>Qué podría salir mal</h2>
+    </div>
+    <div class="grid2">
+      <div class="box">
+        <h3>Registro e inspecciones</h3>
+        <p>La inscripción en el Registro Nacional de Turismo (RNT) es obligatoria para operadores de tours, agencias de viajes y guías de turistas. Desde el 30 de marzo de 2026 el certificado se tramita en línea y es válido por dos años. Los guías reciben una credencial de la Secretaría de Turismo federal. Desde octubre de 2026, la Secretaría de Turismo de Quintana Roo puede hacer visitas de verificación junto con la federal, enfocadas en negocios con quejas.</p>
+        <p class="small">Su sitio no muestra número de registro. No está verificado si está inscrito. Confirmarlo antes de promover paquetes.</p>
+      </div>
+      <div class="box">
+        <h3>Barcos, pesca y seguros</h3>
+        <p>Vender días en barco y pesca lo hace responsable a los ojos de los clientes, aunque el barco lo opere un socio. Revisar que cada socio tenga permisos y seguro, y preguntarle a un agente de seguros si su propia póliza cubre las actividades que revende.</p>
+      </div>
+      <div class="box">
+        <h3>Abarcar demasiado</h3>
+        <p>Es una sola persona. Cinco paquetes, más concierge, más un blog, es más de lo que una persona puede lanzar a la vez. Empezar con dos paquetes y sumar otro solo cuando los primeros funcionen bien.</p>
+      </div>
+      <div class="box">
+        <h3>Competencia</h3>
+        <p>Los barcos y tours de Puerto Aventuras ya se venden en grandes sitios de reservas, y hay un delfinario en la marina. No debería competir por precio. Su ventaja es la atención personal que describen sus opiniones.</p>
+      </div>
+      <div class="box">
+        <h3>Socios y comisiones</h3>
+        <p>Los ingresos por recomendación son fáciles de empezar y fáciles de hacer mal. Hay que transparentarlos y dejar a cualquier socio cuyo servicio genere quejas.</p>
+      </div>
+      <div class="box">
+        <h3>Los precios de este plan</h3>
+        <p>Los rangos sugeridos salen de sus tarifas públicas y de un puñado de anuncios. No se han comparado con sus costos, sus temporadas ni con lo que sus clientes están dispuestos a pagar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="primeros30">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">7 · Primeros 30 días</span>
+      <h2>Un orden realista para empezar</h2>
+    </div>
+    <ol class="steps">
+      <li><span>Confirmar su inscripción en el RNT, su credencial de guía y lo que cubre su seguro.</span></li>
+      <li><span>Elegir dos paquetes para lanzar. Parejas y familias encajan con lo que ya hace mejor.</span></li>
+      <li><span>Acordar condiciones con un capitán de pesca y un operador de catamarán en la Marina Puerto Aventuras.</span></li>
+      <li><span>Hacer las mejoras al sitio 1 a 4: opiniones, categoría en TripAdvisor, políticas y "Conoce a Memo".</span></li>
+      <li><span>Pedir opiniones en Google a los últimos 20 clientes contentos.</span></li>
+      <li><span>Publicar las dos primeras entradas del blog: "¿Es seguro Puerto Aventuras?" y "Cenotes a pocos minutos de Puerto Aventuras".</span></li>
+    </ol>
+    <div class="box">
+      <h3>Preguntas para Memo</h3>
+      <ul>
+        <li>¿Cuánto le cuesta un día de guía y un día de vehículo, para que los paquetes tengan un precio mínimo?</li>
+        <li>¿Por qué capitanes, chefs y restaurantes respondería hoy mismo?</li>
+        <li>¿Cuántos clientes al mes puede atender antes de necesitar otro guía?</li>
+        <li>¿Qué muestra su Instagram que no está en el sitio web?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="fuentes" lang="es">
+  <div class="wrap" style="display:grid;gap:.6rem">
+    <span class="eyebrow">Fuentes, consultadas el 25 de noviembre de 2026</span>
+    <ul>
+      <li><a href="https://www.memotoursadventures.com/tours/" target="_blank" rel="noopener">Memo Tours and Adventures</a>: páginas de inicio, tours, contacto y blog</li>
+      <li><a href="https://www.tripadvisor.com.mx/Attraction_Review-g150812-d10283463-Reviews-Memo_Tours_Adventures-Playa_del_Carmen_Yucatan_Peninsula.html" target="_blank" rel="noopener">Perfil en TripAdvisor</a>: calificación, número de opiniones y las 10 más recientes</li>
+      <li><a href="https://adoption.state.gov/en/international-travel/travel-advisories/mexico.html" target="_blank" rel="noopener">Alerta de viaje del Departamento de Estado de EE. UU. para México</a> (espejo en state.gov; la página principal travel.state.gov no cargó)</li>
+      <li><a href="https://visitax.gob.mx/" target="_blank" rel="noopener">Visitax</a>, sitio del impuesto estatal de Quintana Roo (no muestra el monto)</li>
+      <li><a href="https://www.gtlaw.com/en/insights/2026/4/ventanilla-electronica-en-materia-de-turismo" target="_blank" rel="noopener">Greenberg Traurig sobre la ventanilla en línea del RNT</a>, 13 de abril de 2026</li>
+      <li><a href="https://www.poresto.com/quintana-roo/2026/10/9/quintana-roo-verificar-prestadores-turisticos-convenio-federacion.amp.html" target="_blank" rel="noopener">Por Esto sobre las verificaciones en Quintana Roo</a>, 9 de octubre de 2026</li>
+      <li><a href="https://www.bajabound.com/before/permits/fishing.php" target="_blank" rel="noopener">Permisos de pesca de Baja Bound</a>, verificado en septiembre de 2026 (intermediario, no oficial)</li>
+      <li>Anuncios de salidas: <a href="https://fishingbooker.com/packages/view/174655" target="_blank" rel="noopener">FishingBooker 32 pies</a>, <a href="https://captainexperiences.com/trip/11403/fishing-charter-puerto-aventuras" target="_blank" rel="noopener">Captain Experiences</a>, <a href="https://fishingbooker.com/charters/view/21184" target="_blank" rel="noopener">FishingBooker 50 pies</a>, <a href="https://cancun-discounts.com/tours/riviera-maya/private-catamaran-snorkeling.htm" target="_blank" rel="noopener">catamarán privado desde la Marina Puerto Aventuras</a></li>
+      <li>Datos de cenotes y playas: fichas y opiniones de Google Maps</li>
+    </ul>
+    <p>Sin verificar: su Instagram, sus costos, su estatus de registro y todo lo que deba confirmar un abogado o contador.</p>
+  </div>
+</footer>
+</div>
+<div class="en" lang="en">
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Growth plan · Puerto Aventuras first</span>
+    <h1>Memo Tours and Adventures: where to grow next</h1>
+    <p class="lede">A working plan for Guillermo ("Memo") to add packages, custom tours and local concierge services on top of the tour and transfer business he already runs, starting in Puerto Aventuras.</p>
+    <div class="meta">
+      <span><b>Prepared</b> Nov 25, 2026</span>
+      <span><b>Based on</b> his website, his TripAdvisor listing, public price listings and official pages read that day</span>
+      <span><b>Not reviewed</b> his Instagram (the page blocks automated reading)</span>
+    </div>
+  </div>
+</header>
+
+<nav class="chips" aria-label="Sections">
+  <div class="wrap">
+    <a class="chip" href="#today">Today</a>
+    <a class="chip" href="#packages">Packages</a>
+    <a class="chip" href="#concierge">Custom and concierge</a>
+    <a class="chip" href="#blog">Blog plan</a>
+    <a class="chip" href="#fixes">Site fixes</a>
+    <a class="chip" href="#risks">Risks</a>
+    <a class="chip" href="#next">First 30 days</a>
+    <a class="chip" href="#sources">Sources</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="today">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">1 · Baseline</span>
+      <h2>Where the business is today</h2>
+      <p>Memo runs a bilingual (English and Spanish) day-tour and airport-transfer business covering Playa del Carmen, Puerto Aventuras and Tulum. Guests book by asking for a quote, mostly over WhatsApp, and the site promises a reply within 24 hours.</p>
+    </div>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Offer on his site</th><th>Length</th><th>Shared, per person (min. 4)</th><th>Private for a couple</th><th>Kids</th></tr></thead>
+        <tbody>
+          <tr><td>Snorkeling with Sea Turtles and Cenote</td><td>4 h</td><td class="n">1,620</td><td class="n">4,140</td><td class="n">1,260 (under 8)</td></tr>
+          <tr><td>Hidden Cenotes Adventure</td><td>4 h</td><td class="n">1,980</td><td class="n">4,500</td><td class="n">1,530 (under 8)</td></tr>
+          <tr><td>Tulum Mayan Ruins and Cenote</td><td>5 h</td><td class="n">2,340</td><td class="n">5,400</td><td class="n">1,800 (under 7)</td></tr>
+          <tr><td>Coba Ruins and Mayan Village</td><td>9 h</td><td class="n">2,520</td><td class="n">6,300</td><td class="n">2,160 (under 8)</td></tr>
+          <tr><td>Muyil Ruins and Sian Ka'an Lazy Rivers</td><td>9 h</td><td class="n">2,520</td><td class="n">6,300</td><td class="n">1,980 (under 7)</td></tr>
+          <tr><td>Cenotes Lovers</td><td>9 h</td><td class="n">2,880</td><td class="n">8,100</td><td class="n">2,700 (under 8)</td></tr>
+          <tr><td>Chichen Itza, Valladolid and Cenote</td><td>11 h</td><td class="n">2,880</td><td class="n">9,900</td><td class="n">2,340 (under 8)</td></tr>
+          <tr><td>Puerto Aventuras yacht and catamaran charter</td><td>Half or full day</td><td colspan="3">Private, any group size. Quote only, no price shown.</td></tr>
+          <tr><td>Cancun airport transfers</td><td>One way</td><td colspan="3">Quote only. Site says vehicles hold airport and state permits.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">All prices in MXN as shown on memotoursadventures.com on Nov 25, 2026.</p>
+
+    <div class="grid2">
+      <div class="box">
+        <h3>What already works</h3>
+        <ul>
+          <li><b>Reputation:</b> 4.9 of 5 on TripAdvisor from 162 reviews, most recent on Nov 16, 2026.</li>
+          <li><b>Personal service:</b> reviewers keep praising tours built around their requests, guides who tell Maya history well, clean vehicles and punctual pickups.</li>
+          <li><b>Repeat guests:</b> several reviews say they booked again or now call him for local help. That is the concierge business, already happening informally.</li>
+          <li><b>Private pricing exists:</b> every tour already has a couple's private rate, so packages can build on prices he has tested.</li>
+          <li><b>A Puerto Aventuras base:</b> the marina charter is the one offer that starts in Puerto Aventuras itself.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Gaps to close</h3>
+        <ul>
+          <li>No packages that bundle tours, boats, food and transfers.</li>
+          <li>Almost nothing is built around Puerto Aventuras. Most tours drive guests out to Tulum, Coba or Chichen Itza.</li>
+          <li>No fishing offer, and no starting price for the charter.</li>
+          <li>No deposit, cancellation, weather or payment policy anywhere on the site.</li>
+          <li>Reviews are not shown on the site, and TripAdvisor files him under transportation (ranked 15 of 279), not tours.</li>
+          <li>The "about" is two sentences with no photo of Memo, and no tourism registration number is shown.</li>
+          <li>The blog has three posts, the newest from March 2026.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packages">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">2 · Packages</span>
+      <h2>Packages, built from Puerto Aventuras outward</h2>
+      <p>Each package reuses tours and partners he already has, and stays within about 30 minutes of Puerto Aventuras where possible. Price anchors come from his own rates and from public listings read on Nov 25, 2026.</p>
+    </div>
+    <div class="flag"><b>Prices are starting points to test.</b> They have not been checked against Memo's real costs (guides, fuel, boat partners, admissions) or his margins. USD figures are as the listings showed them; no exchange rate was applied.</div>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Couples and special moments</h3><span class="tag">anniversaries · proposals · honeymoons</span></div>
+      <dl class="kv">
+        <dt>The day</dt><dd>Private morning at a quiet cenote near Puerto Aventuras, a long local lunch Memo picks, then a private sunset sail from Puerto Aventuras Marina. Optional add-ons: photographer, flowers or a cake on board, a dinner reservation he books for them.</dd>
+        <dt>Price anchor</dt><dd>His couple's rate for Hidden Cenotes is <span class="price">4,500 MXN</span>. Small private boats out of Puerto Aventuras list at <span class="price">US$550 to 675</span> for 4 hours plus a <span class="price">US$10 to 15</span> per-person dock fee (fishing charter listings).</dd>
+        <dt>Suggested</dt><dd>Sell as one price: land part plus the boat quote plus a fixed fee for planning and extras. Quote add-ons separately so the base stays easy to compare.</dd>
+        <dt>Why it sells</dt><dd>Couples planning a milestone want it to feel arranged, not booked. A single local who handles every piece is what reviewers already praise him for.</dd>
+      </dl>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Families with young kids</h3><span class="tag">short drives · nap-friendly</span></div>
+      <dl class="kv">
+        <dt>The day</dt><dd>Half days only, back by early afternoon. Example: Akumal sea turtles in the morning, then a calm cenote with shallow areas and life vests. Cenote Cristalino and Cenote Azul are both a few minutes' drive from Puerto Aventuras, and Xpu-Ha beach is about 12 minutes away.</dd>
+        <dt>Price anchor</dt><dd>His Sea Turtles tour for two adults and two kids under 8 at shared rates comes to <span class="price">5,760 MXN</span>. The couple's private rate is <span class="price">4,140 MXN</span>.</dd>
+        <dt>Suggested</dt><dd>A private family price for up to two adults and two kids, roughly <span class="price">6,500 to 7,500 MXN</span>, with car seats on request and extra kids at his kid rate.</dd>
+        <dt>Why it sells</dt><dd>Parents pay more to avoid long drives, shared vans and fixed schedules. Puerto Aventuras has the short-hop options that make this easy.</dd>
+      </dl>
+      <p class="small">Cenote admission seen in Google reviews: about 200 MXN at Cristalino and 150 MXN at Azul (cash only at Azul). Check at the gate. Families will also ask about the dolphin center in the marina. Some guests avoid captive dolphin programs, so have the wild-turtle option ready as the alternative.</p>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Fishing from Puerto Aventuras Marina</h3><span class="tag">partner with a captain</span></div>
+      <dl class="kv">
+        <dt>The day</dt><dd>Hotel or condo pickup, a 4 to 6 hour charter with a captain Memo trusts, then a restaurant that cooks the catch for lunch. He adds the pickup, the cooking stop and the hosting.</dd>
+        <dt>Price anchor</dt><dd>Puerto Aventuras charters listed on Nov 25, 2026: 32-ft boat, up to 6 people, <span class="price">US$550</span> for 4 h. Up to 10 people, <span class="price">US$675 / 875 / 1,075</span> for 4 / 6 / 8 h. 50-ft boat, up to 11, <span class="price">US$1,700</span> for 4 h. Dock fees of <span class="price">US$10 to 15</span> per person, cash, are extra.</dd>
+        <dt>Suggested</dt><dd>Partner's boat rate plus his pickup and lunch, sold as one price. He should not buy a boat to start.</dd>
+        <dt>Why it sells</dt><dd>Fishing is already sold on booking sites, so demand exists. What those listings lack is the door-to-door hosting and the meal, which is where Memo is different.</dd>
+      </dl>
+      <div class="flag"><b>Licenses:</b> a broker page (verified Sep 2026) says every person aboard needs their own sport fishing permit, captain and crew included, with fines for fishing without one. The charter listings say licenses are included. Confirm this with the official fishing authority (CONAPESCA) and with each partner captain before selling.</div>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Groups and celebrations</h3><span class="tag">birthdays · reunions · wedding guests</span></div>
+      <dl class="kv">
+        <dt>The day</dt><dd>Private catamaran from Puerto Aventuras Marina with snorkeling, lunch and open bar, plus group airport transfers and an optional cenote or ruins day.</dd>
+        <dt>Price anchor</dt><dd>A 65-ft private catamaran from Puerto Aventuras Marina lists at <span class="price">US$2,400</span> for 1 to 10 people with BBQ lunch, plus <span class="price">US$50</span> per extra person and a <span class="price">US$20</span> per-person dock fee.</dd>
+        <dt>Suggested</dt><dd>Per-group pricing with a clear headcount band, a deposit to hold the date, and transfers bundled at a small discount.</dd>
+        <dt>Why it sells</dt><dd>Group organizers want one contact for boats, vans and timing. A recent review praised his transfers for a group of 12.</dd>
+      </dl>
+    </article>
+
+    <article class="pkg">
+      <div class="pkg-top"><h3>Arrival day and long stays</h3><span class="tag">condo and villa guests</span></div>
+      <dl class="kv">
+        <dt>Arrival day</dt><dd>Airport pickup, a stop for groceries and cash, and a short walk-through of the area (where to swim, eat and buy water). Sells as a transfer upgrade.</dd>
+        <dt>Long stay</dt><dd>A monthly "local contact" plan for guests staying weeks or months: priority bookings, a set number of planning requests, and introductions to his network.</dd>
+        <dt>Price anchor</dt><dd>None found. Set the price after a few trial runs with past guests.</dd>
+        <dt>Why it sells</dt><dd>Condo guests have no hotel concierge. Reviewers who already call him for help show the demand.</dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section id="concierge">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">3 · Custom and concierge</span>
+      <h2>Turn what he knows and who he knows into services</h2>
+      <p>Reviews show guests already value his personal, built-to-order days. These services make that official and paid.</p>
+    </div>
+    <div class="grid2">
+      <div class="box">
+        <h3>Custom tours</h3>
+        <ul>
+          <li>Five intake questions on WhatsApp: dates, group and ages, pace, must-sees, budget.</li>
+          <li>Price from parts: guide day rate, vehicle, admissions, then his margin. Write it down once so quotes stay consistent.</li>
+          <li>Offer three ready-made "starting points" so people are not facing a blank page.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Restaurant picks and bookings</h3>
+        <ul>
+          <li>"Memo's list" by town and by occasion: family, date night, seafood, where locals eat.</li>
+          <li>Booking help as part of packages or the long-stay plan.</li>
+          <li>If a restaurant pays him for referrals, tell guests. Hidden commissions damage trust if they come out.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Rentals</h3>
+        <ul>
+          <li>Refer guests to rental agencies, boat owners and car or golf-cart rentals he trusts, rather than handling the rentals himself.</li>
+          <li>Acting as the rental agent may bring legal and tax duties. That was not checked; ask an accountant before doing more than referrals.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Local people</h3>
+        <ul>
+          <li>Captains, private chefs, photographers, Maya village hosts, event planners.</li>
+          <li>A simple written agreement with each: price, who pays whom, what happens if they cancel.</li>
+          <li>Feature partners on the blog only with their consent.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flag"><b>Counter-argument:</b> every partner's bad day lands on Memo's reviews. Start with a few people he would personally vouch for, and add more only after guests rate them.</div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">4 · Blog plan</span>
+      <h2>Articles that answer what travelers search before booking</h2>
+      <p>Each post should link to one package and end with the WhatsApp button. Two posts a month is realistic for one person.</p>
+      <p class="small"><span class="pill p-info">Research</span>early questions <span class="pill p-plan">Planning</span>comparing options <span class="pill p-book">Ready to book</span>close to buying</p>
+    </div>
+
+    <div class="grid2">
+      <div class="box">
+        <h3>Safety in Mexico</h3>
+        <ul class="blog">
+          <li><span class="pill p-info">Research</span>Is Puerto Aventuras safe? A local guide's straight answer</li>
+          <li><span class="pill p-info">Research</span>What the US travel advisory says about Quintana Roo, in plain words</li>
+          <li><span class="pill p-plan">Planning</span>Arriving at Cancun airport: getting to your hotel without taxi surprises</li>
+          <li><span class="pill p-plan">Planning</span>Cenotes with young kids: life vests, depths and which ones suit small swimmers</li>
+          <li><span class="pill p-info">Research</span>The Visitax: what it is and how to pay it</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Places to explore</h3>
+        <ul class="blog">
+          <li><span class="pill p-plan">Planning</span>Cenotes a few minutes from Puerto Aventuras</li>
+          <li><span class="pill p-plan">Planning</span>Xpu-Ha or Akumal: which beach day fits your family</li>
+          <li><span class="pill p-plan">Planning</span>Tulum, Coba or Chichen Itza: which ruins to pick for your trip</li>
+          <li><span class="pill p-info">Research</span>Puerto Aventuras without a car: what you can do</li>
+          <li><span class="pill p-book">Ready to book</span>Fishing out of Puerto Aventuras: what a charter costs and includes</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Local people</h3>
+        <ul class="blog">
+          <li><span class="pill p-info">Research</span>Meet Memo: how a local guide got started</li>
+          <li><span class="pill p-info">Research</span>A morning in a Maya village: who you meet and what the visit supports</li>
+          <li><span class="pill p-plan">Planning</span>A day with a Puerto Aventuras fishing captain</li>
+          <li><span class="pill p-plan">Planning</span>Where Memo eats in Puerto Aventuras and Akumal</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Occasions</h3>
+        <ul class="blog">
+          <li><span class="pill p-book">Ready to book</span>Anniversary ideas in the Riviera Maya, planned by a local</li>
+          <li><span class="pill p-book">Ready to book</span>Things to do with toddlers in Puerto Aventuras</li>
+          <li><span class="pill p-book">Ready to book</span>Planning a group trip to Puerto Aventuras: boats, vans and timing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="good"><b>For the safety posts:</b> the US State Department rates Mexico Level 2, "Exercise increased caution" (issued May 29, 2026). Quintana Roo is also at increased caution, with advice to watch surroundings after dark and stay on well-lit streets and in tourist zones. Visitax, the state tourist fee, is mandatory for foreign visitors. Quote these with the date and a link, and recheck before each post.</div>
+    <div class="flag"><b>Counter-arguments:</b> new blog posts often take months to bring in searches, while asking happy guests for Google and TripAdvisor reviews pays off sooner. Safety posts should report what official sources say and never promise that a place is safe.</div>
+  </div>
+</section>
+
+<section id="fixes">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">5 · Quick site fixes</span>
+      <h2>Small changes, roughly in order of payoff</h2>
+    </div>
+    <ol class="steps">
+      <li><span><b>Show the reviews.</b> Put the 4.9 rating and three short guest quotes on the home page, linked to TripAdvisor. Set up a Google Business Profile and ask recent guests to review there too.</span></li>
+      <li><span><b>Move the TripAdvisor listing into tours.</b> It currently ranks under transportation, where tour shoppers will not see it. Ask TripAdvisor whether the category can change.</span></li>
+      <li><span><b>Add policies.</b> Deposit, cancellation, weather, kids' ages, payment methods, what is not included (tips, cash for dock fees).</span></li>
+      <li><span><b>Meet Memo.</b> A photo, years guiding, languages, his guide credential and tourism registration number if he has them.</span></li>
+      <li><span><b>A Packages page and a Puerto Aventuras page.</b> One page each, linking to WhatsApp with the package name already in the message.</span></li>
+      <li><span><b>Give the charter a "from" price.</b> A quote-only boat loses people who are comparing listings that show prices.</span></li>
+      <li><span><b>Tidy small errors.</b> "Enlgish" on the Chichen Itza page, and kids' ages that switch between "under 7" and "under 8".</span></li>
+      <li><span><b>Optional online deposit.</b> A payment link to hold a date. Card fees and refunds then need handling, so weigh that first.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">6 · Risks and counter-arguments</span>
+      <h2>What could go wrong</h2>
+    </div>
+    <div class="grid2">
+      <div class="box">
+        <h3>Registration and inspections</h3>
+        <p>Registration in the national tourism registry (RNT) is mandatory for tour operators, travel agencies and tourist guides. Since March 30, 2026 the certificate is issued online and is valid for two years. Guides get a credential from the federal tourism ministry. From October 2026, Quintana Roo's tourism office can run inspection visits with the federal ministry, focusing on businesses with complaints.</p>
+        <p class="small">His site shows no registration number. Whether he is registered is unverified. Confirm before marketing packages.</p>
+      </div>
+      <div class="box">
+        <h3>Boats, fishing and insurance</h3>
+        <p>Selling boat days and fishing makes him responsible in guests' eyes even when a partner runs the boat. Check that each partner has permits and insurance, and ask an insurance broker whether his own policy covers activities he resells.</p>
+      </div>
+      <div class="box">
+        <h3>Spreading too thin</h3>
+        <p>He is one person. Five packages plus concierge plus a blog is more than one person can launch at once. Start with two packages and add one only when the first ones run smoothly.</p>
+      </div>
+      <div class="box">
+        <h3>Competition</h3>
+        <p>Puerto Aventuras boats and tours are already sold on large booking sites, and a dolphin park sits in the marina. He should not compete on price. His edge is the personal hosting his reviews describe.</p>
+      </div>
+      <div class="box">
+        <h3>Partners and commissions</h3>
+        <p>Referral income is easy to start and easy to get wrong. Disclose it, and drop any partner whose service draws complaints.</p>
+      </div>
+      <div class="box">
+        <h3>Prices in this plan</h3>
+        <p>The suggested ranges come from his public rates and a handful of listings. They are not checked against his costs, seasons or what his guests will pay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">7 · First 30 days</span>
+      <h2>A realistic order to start</h2>
+    </div>
+    <ol class="steps">
+      <li><span>Confirm his RNT registration and guide credential, and what his insurance covers.</span></li>
+      <li><span>Pick two packages to launch. Couples and families fit what he already does best.</span></li>
+      <li><span>Agree terms with one fishing captain and one catamaran operator at Puerto Aventuras Marina.</span></li>
+      <li><span>Ship site fixes 1 to 4: reviews, TripAdvisor category, policies, "Meet Memo".</span></li>
+      <li><span>Ask the last 20 happy guests for Google reviews.</span></li>
+      <li><span>Publish the first two blog posts: "Is Puerto Aventuras safe?" and "Cenotes a few minutes from Puerto Aventuras".</span></li>
+    </ol>
+    <div class="box">
+      <h3>Questions for Memo</h3>
+      <ul>
+        <li>What does a guide day and a vehicle day cost him, so package prices have a floor?</li>
+        <li>Which captains, chefs and restaurants would he vouch for today?</li>
+        <li>How many guests a month can he handle before he needs another guide?</li>
+        <li>What does his Instagram show that is not on the website?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="sources">
+  <div class="wrap" style="display:grid;gap:.6rem">
+    <span class="eyebrow">Sources, read Nov 25, 2026</span>
+    <ul>
+      <li><a href="https://www.memotoursadventures.com/tours/" target="_blank" rel="noopener">Memo Tours and Adventures</a>: home, tours, contact and blog pages</li>
+      <li><a href="https://www.tripadvisor.com.mx/Attraction_Review-g150812-d10283463-Reviews-Memo_Tours_Adventures-Playa_del_Carmen_Yucatan_Peninsula.html" target="_blank" rel="noopener">TripAdvisor listing</a>: rating, count and the 10 newest reviews</li>
+      <li><a href="https://adoption.state.gov/en/international-travel/travel-advisories/mexico.html" target="_blank" rel="noopener">US State Department Mexico advisory</a> (state.gov mirror; the main travel.state.gov page did not load)</li>
+      <li><a href="https://visitax.gob.mx/" target="_blank" rel="noopener">Visitax</a>, Quintana Roo state tax site (amount not shown there)</li>
+      <li><a href="https://www.gtlaw.com/en/insights/2026/4/ventanilla-electronica-en-materia-de-turismo" target="_blank" rel="noopener">Greenberg Traurig on the RNT online window</a>, Apr 13, 2026</li>
+      <li><a href="https://www.poresto.com/quintana-roo/2026/10/9/quintana-roo-verificar-prestadores-turisticos-convenio-federacion.amp.html" target="_blank" rel="noopener">Por Esto on Quintana Roo inspections</a>, Oct 9, 2026</li>
+      <li><a href="https://www.bajabound.com/before/permits/fishing.php" target="_blank" rel="noopener">Baja Bound fishing permits</a>, verified Sep 2026 (broker, not official)</li>
+      <li>Charter listings: <a href="https://fishingbooker.com/packages/view/174655" target="_blank" rel="noopener">FishingBooker 32-ft</a>, <a href="https://captainexperiences.com/trip/11403/fishing-charter-puerto-aventuras" target="_blank" rel="noopener">Captain Experiences</a>, <a href="https://fishingbooker.com/charters/view/21184" target="_blank" rel="noopener">FishingBooker 50-ft</a>, <a href="https://cancun-discounts.com/tours/riviera-maya/private-catamaran-snorkeling.htm" target="_blank" rel="noopener">private catamaran from Puerto Aventuras Marina</a></li>
+      <li>Cenote and beach details: Google Maps listings and reviews</li>
+    </ul>
+    <p>Not checked: his Instagram, his costs, his registration status, and anything a lawyer or accountant should confirm.</p>
+  </div>
+</footer>
+</div>
+
+<script>
+window.PAGE_TITLES={es:'Plan de crecimiento de Memo',en:'Memo Tours Growth Plan'};
+
+const Prefs={
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+};
+const ICON_SUN='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2zm18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2zM11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0zm0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM5.99 4.58a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41l-1.06-1.06zm1.06-10.96a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06z"/></svg>', ICON_MOON='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>';
+function currentLang(){return document.documentElement.lang==='en'?'en':'es'}
+function effectiveTheme(){
+  const t=document.documentElement.getAttribute('data-theme');
+  if(t==='dark'||t==='light')return t;
+  return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+function paintChrome(){
+  const lang=currentLang();
+  document.querySelectorAll('.seg [data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
+  document.querySelectorAll('[data-aria-'+lang+']').forEach(el=>el.setAttribute('aria-label',el.getAttribute('data-aria-'+lang)));
+  const tb=document.getElementById('theme-btn');
+  if(tb){
+    const dark=effectiveTheme()==='dark';
+    tb.innerHTML=dark?ICON_SUN:ICON_MOON;
+    tb.setAttribute('aria-label',lang==='es'?(dark?'Usar tema claro':'Usar tema oscuro'):(dark?'Use light theme':'Use dark theme'));
+  }
+  if(window.PAGE_TITLES)document.title=window.PAGE_TITLES[lang];
+}
+function setLang(lang){
+  document.documentElement.lang=lang;
+  Prefs.set('memo.lang',lang);
+  paintChrome();
+  document.dispatchEvent(new CustomEvent('memo:lang',{detail:lang}));
+}
+document.querySelectorAll('.seg [data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+const themeBtn=document.getElementById('theme-btn');
+if(themeBtn)themeBtn.addEventListener('click',()=>{
+  const next=effectiveTheme()==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  Prefs.set('memo.theme',next);
+  paintChrome();
+});
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',paintChrome);
+paintChrome();
+
+
+</script>
+</body>
+</html>

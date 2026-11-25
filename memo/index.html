@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espacio de Memo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&family=Roboto+Mono:wght@400;500&display=swap">
+<script>
+(function(){var d=document.documentElement;try{var t=localStorage.getItem('memo.theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);var l=localStorage.getItem('memo.lang');d.lang=(l==='en'?'en':'es');}catch(e){d.lang='es';}})();
+</script>
+<style>
+:root{
+  --primary:#006a65; --on-primary:#ffffff; --primary-container:#9cf2eb; --on-primary-container:#00201e;
+  --secondary:#4a6361; --secondary-container:#cce8e5; --on-secondary-container:#051f1e;
+  --tertiary:#48617a; --tertiary-container:#cfe5ff; --on-tertiary-container:#001d33;
+  --surface:#f4fbf9; --surface-lowest:#ffffff; --surface-low:#eff5f3; --surface-container:#e9efed;
+  --surface-high:#e3eae8; --surface-highest:#dde4e2;
+  --on-surface:#161d1c; --on-surface-variant:#3f4947; --outline:#6f7977; --outline-variant:#bec9c6;
+  --error:#ba1a1a; --on-error:#ffffff; --error-container:#ffdad6; --on-error-container:#410002;
+  --warn:#7a5900; --warn-container:#ffdea0; --on-warn-container:#261a00;
+  --good:#2e6b2f; --good-container:#c3efb8; --on-good-container:#002204;
+  --inverse-surface:#2b3231; --inverse-on-surface:#ecf2f0; --inverse-primary:#80d5cf;
+  --card:#ffffff;
+  --font:"Roboto Flex","Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Roboto Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --primary:#80d5cf; --on-primary:#003734; --primary-container:#00504c; --on-primary-container:#9cf2eb;
+  --secondary:#b0ccc9; --secondary-container:#324b49; --on-secondary-container:#cce8e5;
+  --tertiary:#b0c9e5; --tertiary-container:#304a62; --on-tertiary-container:#cfe5ff;
+  --surface:#0e1514; --surface-lowest:#090f0f; --surface-low:#161d1c; --surface-container:#1a2120;
+  --surface-high:#252b2a; --surface-highest:#2f3635;
+  --on-surface:#dde4e2; --on-surface-variant:#bec9c6; --outline:#899390; --outline-variant:#3f4947;
+  --error:#ffb4ab; --on-error:#690005; --error-container:#93000a; --on-error-container:#ffdad6;
+  --warn:#f5bf48; --warn-container:#5c4200; --on-warn-container:#ffdea0;
+  --good:#a8d39d; --good-container:#14501a; --on-good-container:#c3efb8;
+  --inverse-surface:#dde4e2; --inverse-on-surface:#2b3231; --inverse-primary:#006a65;
+  --card:#1a2120; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --primary:#80d5cf; --on-primary:#003734; --primary-container:#00504c; --on-primary-container:#9cf2eb;
+  --secondary:#b0ccc9; --secondary-container:#324b49; --on-secondary-container:#cce8e5;
+  --tertiary:#b0c9e5; --tertiary-container:#304a62; --on-tertiary-container:#cfe5ff;
+  --surface:#0e1514; --surface-lowest:#090f0f; --surface-low:#161d1c; --surface-container:#1a2120;
+  --surface-high:#252b2a; --surface-highest:#2f3635;
+  --on-surface:#dde4e2; --on-surface-variant:#bec9c6; --outline:#899390; --outline-variant:#3f4947;
+  --error:#ffb4ab; --on-error:#690005; --error-container:#93000a; --on-error-container:#ffdad6;
+  --warn:#f5bf48; --warn-container:#5c4200; --on-warn-container:#ffdea0;
+  --good:#a8d39d; --good-container:#14501a; --on-good-container:#c3efb8;
+  --inverse-surface:#dde4e2; --inverse-on-surface:#2b3231; --inverse-primary:#006a65;
+  --card:#1a2120; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--surface);color:var(--on-surface);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[hidden]{display:none!important}
+html:not([lang="en"]) .en{display:none!important}
+html[lang="en"] .es{display:none!important}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+svg.i{width:24px;height:24px;fill:currentColor;flex:0 0 auto}
+svg.i.s18{width:18px;height:18px}
+
+/* Top app bar */
+.topbar{background:var(--surface);z-index:20}
+.topbar-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:4px;min-height:64px}
+.tb-title{flex:1;min-width:0;font-size:1.25rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0 4px}
+.tb-actions{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+
+/* Buttons */
+.icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--on-surface-variant);display:inline-grid;place-items:center;cursor:pointer;text-decoration:none;flex:0 0 auto}
+.icon-btn:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
+.icon-btn:disabled{opacity:.38;cursor:default;background:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 24px;border-radius:20px;border:0;font:500 .875rem/1 var(--font);letter-spacing:.01em;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn.has-icon{padding-left:16px}
+.btn-filled{background:var(--primary);color:var(--on-primary)}
+.btn-filled:hover{box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.btn-tonal{background:var(--secondary-container);color:var(--on-secondary-container)}
+.btn-tonal:hover{background:color-mix(in srgb,var(--on-secondary-container) 8%,var(--secondary-container))}
+.btn-outlined{background:transparent;color:var(--primary);border:1px solid var(--outline)}
+.btn-outlined:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.btn-text{background:transparent;color:var(--primary);padding:0 12px}
+.btn-text:hover{background:color-mix(in srgb,var(--primary) 8%,transparent)}
+.btn-danger{background:var(--error);color:var(--on-error)}
+
+/* Segmented button (language) */
+.seg{display:inline-flex;border:1px solid var(--outline);border-radius:20px;overflow:hidden;height:40px}
+.seg button{border:0;background:transparent;color:var(--on-surface);font:500 .875rem/1 var(--font);padding:0 12px;min-width:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px}
+.seg button+button{border-left:1px solid var(--outline)}
+.seg button[aria-pressed="true"]{background:var(--secondary-container);color:var(--on-secondary-container)}
+.seg button svg{display:none}
+.seg button[aria-pressed="true"] svg{display:block}
+
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+
+/* Layout: one column, a coastal route line as the hero detail, two cards for the two tools */
+.wrap{max-width:880px;margin:0 auto}
+.hero{padding-block:24px 8px;display:grid;gap:14px}
+.eyebrow{font:500 .75rem/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
+h1{font-size:clamp(2.1rem,7vw,3.2rem);line-height:1.08;font-weight:600;letter-spacing:-.015em;margin:0;text-wrap:balance;font-variation-settings:"opsz" 96}
+.lede{font-size:1.125rem;color:var(--on-surface-variant);margin:0;max-width:60ch}
+.route{margin-top:10px;background:var(--surface-container);border-radius:16px;padding:16px 18px 14px;display:grid;gap:10px}
+.route-label{font:500 .75rem/1.3 var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--on-surface-variant)}
+.stops{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;row-gap:12px}
+.stops li{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-right:22px;font-size:.875rem;color:var(--on-surface-variant)}
+.stops li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--outline)}
+.stops li::after{content:"";position:absolute;left:14px;right:2px;top:5px;height:2px;background:var(--outline-variant)}
+.stops li:last-child::after{display:none}
+.stops li.here{color:var(--on-surface);font-weight:600}
+.stops li.here::before{background:var(--primary);border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 22%,transparent)}
+.stops small{display:block;font-weight:500;font-size:.75rem;color:var(--primary)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding-block:24px}
+.tool{display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;padding:20px;text-decoration:none;color:inherit;min-width:0;transition:background .15s,border-color .15s}
+.tool:hover{background:var(--surface-container);border-color:var(--outline)}
+.tool-ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container)}
+.tool.alt .tool-ico{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.tool h2{margin:0;font-size:1.375rem;font-weight:600;line-height:1.25}
+.tool p{margin:0;color:var(--on-surface-variant);max-width:52ch}
+.tool .cta{justify-self:start;margin-top:6px}
+.tool:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+.note{display:flex;gap:12px;align-items:flex-start;background:var(--secondary-container);color:var(--on-secondary-container);border-radius:12px;padding:14px 16px;font-size:.95rem}
+.note p{margin:0;max-width:70ch}
+.steps{display:grid;gap:10px;margin:20px 0 0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+.steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--surface-high);color:var(--on-surface);font:500 .8rem/1 var(--mono)}
+h3{font-size:1rem;font-weight:600;margin:28px 0 0}
+footer{padding-block:32px 40px;font-size:.8125rem;color:var(--on-surface-variant)}
+</style>
+</head>
+<body>
+<header class="topbar gutter">
+  <div class="topbar-in">
+    
+    <p class="tb-title"><span class="es">Memo Tours and Adventures</span><span class="en">Memo Tours and Adventures</span></p>
+    <div class="tb-actions">
+      <div class="seg" role="group" aria-label="Idioma / Language">
+        <button type="button" id="lang-es" data-lang="es" aria-pressed="true"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>ES</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Cambiar tema"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></button>
+    </div>
+  </div>
+</header>
+<main class="gutter">
+<div class="wrap">
+  <section class="hero">
+    <span class="eyebrow"><span class="es">Para Guillermo "Memo"</span><span class="en">For Guillermo "Memo"</span></span>
+    <h1><span class="es">Hacia dónde crecer, lugar por lugar</span><span class="en">Where to grow, place by place</span></h1>
+    <p class="lede"><span class="es">Aquí hay dos cosas para revisar con calma: un plan con ideas para crecer el negocio y una hoja de trabajo para ordenar lo que ya sabes de cada lugar de la Riviera Maya.</span><span class="en">Two things to go through at your own pace: a plan with ideas for growing the business, and a worksheet to organize what you already know about each place in the Riviera Maya.</span></p>
+    <div class="route" aria-label="Riviera Maya">
+      <span class="route-label"><span class="es">Lugares para empezar</span><span class="en">Places to start with</span></span>
+      <ol class="stops">
+<li class=""><span>Playa del Carmen</span></li>
+<li class="here"><span>Puerto Aventuras<small><span class="es">Empieza aquí</span><span class="en">Start here</span></small></span></li>
+<li class=""><span>Xpu-Ha</span></li>
+<li class=""><span>Akumal</span></li>
+<li class=""><span>Tulum</span></li>
+<li class=""><span>Cobá</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tools" aria-label="Herramientas">
+    <a class="tool" href="plan.html">
+      <span class="tool-ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></span>
+      <h2><span class="es">Plan de crecimiento</span><span class="en">Growth plan</span></h2>
+      <p><span class="es">Paquetes, tours a la medida, concierge, ideas para el blog, mejoras al sitio, riesgos y los primeros 30 días, empezando en Puerto Aventuras.</span><span class="en">Packages, custom tours, concierge, blog ideas, website fixes, risks and the first 30 days, starting in Puerto Aventuras.</span></p>
+      <span class="btn btn-tonal cta"><span class="es">Leer el plan</span><span class="en">Read the plan</span><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span>
+    </a>
+    <a class="tool alt" href="lugares.html">
+      <span class="tool-ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
+      <h2><span class="es">Hoja de trabajo: lugares</span><span class="en">Worksheet: places</span></h2>
+      <p><span class="es">Para cada lugar: qué hacer, a quién conoces ahí, qué tours tienen sentido y qué transporte se necesita. Agrega, cambia y regresa cuando quieras.</span><span class="en">For each place: things to do, people you know there, tours that make sense and the transport it takes. Add, change and come back any time.</span></p>
+      <span class="btn btn-tonal cta"><span class="es">Abrir la hoja</span><span class="en">Open the worksheet</span><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span>
+    </a>
+  </section>
+
+  <div class="note">
+    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg>
+    <p><span class="es">Lo que escribes en la hoja se guarda solo en este teléfono o computadora. Nada se envía a ningún lado. Cuando quieras compartirlo o respaldarlo, usa <b>Descargar</b> o <b>Copiar</b> dentro de la hoja.</span><span class="en">What you write in the worksheet stays on this phone or computer. Nothing is sent anywhere. When you want to share it or back it up, use <b>Download</b> or <b>Copy</b> inside the worksheet.</span></p>
+  </div>
+
+  <h3><span class="es">Una forma de empezar</span><span class="en">One way to start</span></h3>
+  <ol class="steps">
+    <li><span><span class="es">Lee el plan completo una vez, sin prisa.</span><span class="en">Read the whole plan once, without rushing.</span></span></li>
+    <li><span><span class="es">Abre la hoja y llena Puerto Aventuras primero. No tiene que estar perfecto.</span><span class="en">Open the worksheet and fill in Puerto Aventuras first. It does not have to be perfect.</span></span></li>
+    <li><span><span class="es">Sigue con los lugares que mejor conoces y agrega los que falten.</span><span class="en">Move on to the places you know best and add any that are missing.</span></span></li>
+  </ol>
+</div>
+</main>
+<footer class="gutter"><div class="wrap"><span class="es">Preparado en noviembre de 2026.</span><span class="en">Prepared in November 2026.</span></div></footer>
+
+<script>
+window.PAGE_TITLES={es:'Espacio de Memo',en:"Memo's Workspace"};
+
+const Prefs={
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+};
+const ICON_SUN='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2zm18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2zM11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0zm0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM5.99 4.58a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41l-1.06-1.06zm1.06-10.96a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06z"/></svg>', ICON_MOON='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>';
+function currentLang(){return document.documentElement.lang==='en'?'en':'es'}
+function effectiveTheme(){
+  const t=document.documentElement.getAttribute('data-theme');
+  if(t==='dark'||t==='light')return t;
+  return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+function paintChrome(){
+  const lang=currentLang();
+  document.querySelectorAll('.seg [data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===lang)));
+  document.querySelectorAll('[data-aria-'+lang+']').forEach(el=>el.setAttribute('aria-label',el.getAttribute('data-aria-'+lang)));
+  const tb=document.getElementById('theme-btn');
+  if(tb){
+    const dark=effectiveTheme()==='dark';
+    tb.innerHTML=dark?ICON_SUN:ICON_MOON;
+    tb.setAttribute('aria-label',lang==='es'?(dark?'Usar tema claro':'Usar tema oscuro'):(dark?'Use light theme':'Use dark theme'));
+  }
+  if(window.PAGE_TITLES)document.title=window.PAGE_TITLES[lang];
+}
+function setLang(lang){
+  document.documentElement.lang=lang;
+  Prefs.set('memo.lang',lang);
+  paintChrome();
+  document.dispatchEvent(new CustomEvent('memo:lang',{detail:lang}));
+}
+document.querySelectorAll('.seg [data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+const themeBtn=document.getElementById('theme-btn');
+if(themeBtn)themeBtn.addEventListener('click',()=>{
+  const next=effectiveTheme()==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  Prefs.set('memo.theme',next);
+  paintChrome();
+});
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',paintChrome);
+paintChrome();
+
+
+</script>
+</body>
+</html>
