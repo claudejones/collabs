@@ -101,7 +101,9 @@ svg.i.s18{width:18px;height:18px}
 
 /* Layout: one narrow column. Overview of places, or a five-step guide for one place with a sticky Back/Next bar */
 .topbar{background:var(--surface)}
-.shell{max-width:680px;margin:0 auto;padding-block:8px 40px;display:grid;gap:16px}
+.shell{max-width:680px;margin:0 auto;padding-block:8px calc(88px + env(safe-area-inset-bottom,0px));display:grid;gap:16px}
+body.in-guide .topbar-in > a.icon-btn{display:none}
+body.in-guide .tb-title{margin-left:12px}
 h1,h2{margin:0;text-wrap:balance}
 .ov-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding-top:8px}
 .ov-head h1{font-size:clamp(1.75rem,6vw,2.25rem);font-weight:600;letter-spacing:-.01em;font-variation-settings:"opsz" 72}
@@ -157,11 +159,11 @@ h1,h2{margin:0;text-wrap:balance}
 .entry-top .icon-btn{margin-left:auto}
 .grid-2{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .err{color:var(--error);font-size:.875rem;margin:0}
-.wz-nav{position:sticky;bottom:0;z-index:15;display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--surface);border-top:1px solid var(--outline-variant);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));margin-top:8px}
+.wz-nav{display:flex;align-items:center;gap:8px;justify-content:space-between;border-top:1px solid var(--outline-variant);padding:16px 0 calc(24px + env(safe-area-inset-bottom,0px));margin-top:8px}
 .wz-nav .spacer{flex:1}
 
 /* Outlined text fields */
-.field{position:relative;display:block;min-width:0}
+.field{position:relative;display:block;min-width:0;flex:none;min-height:56px;scroll-margin:24px 0 120px}
 .field input,.field textarea,.field select{width:100%;font:400 1rem/1.4 var(--font);color:var(--on-surface);background:transparent;border:1px solid var(--outline);border-radius:8px;padding:22px 12px 8px;min-height:56px;outline:none;transition:border-color .12s}
 .field textarea{resize:vertical;min-height:84px;display:block}
 .field select{appearance:none;-webkit-appearance:none;padding-right:36px;cursor:pointer;background:var(--card)}
@@ -561,7 +563,18 @@ function renderStep(focusFirst){
   window.scrollTo(0,0);
   if(focusFirst){if(s==='name')$('place-name').focus();else $('step-q').focus({preventScroll:true})}
 }
-function render(focus){if(view.mode==='overview')renderOverview();else renderStep(focus)}
+function render(focus){document.body.classList.toggle('in-guide',view.mode==='step');if(view.mode==='overview')renderOverview();else renderStep(focus)}
+
+/* When the on-screen keyboard opens, the visible area shrinks. Keep the field being typed in fully visible. */
+function keepFocusedVisible(){
+  const el=document.activeElement;
+  if(!el||!el.matches||!el.matches('input[type=text],textarea,select'))return;
+  const box=el.closest('.field')||el, r=box.getBoundingClientRect();
+  const vv=window.visualViewport, top=vv?vv.offsetTop:0, h=vv?vv.height:window.innerHeight;
+  if(r.top<top+16||r.bottom>top+h-16)box.scrollIntoView({block:'center'});
+}
+document.addEventListener('focusin',()=>setTimeout(keepFocusedVisible,350));
+if(window.visualViewport)window.visualViewport.addEventListener('resize',()=>setTimeout(keepFocusedVisible,50));
 
 function leaveStep(){
   const p=placeById(view.pid);if(!p)return;prune(p);
