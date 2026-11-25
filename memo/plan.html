@@ -99,65 +99,70 @@ svg.i.s18{width:18px;height:18px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 
 
-/* Layout: the plan's original single reading column, re-skinned with Material 3 tokens */
+/* Layout: one column; the plan is an outline of eight collapsible topics, each with a two-line summary */
 :root{
   --bg:var(--surface); --ink:var(--on-surface); --muted:var(--on-surface-variant); --line:var(--outline-variant);
-  --lagoon:var(--primary); --lagoon-soft:var(--primary-container); --cenote:var(--primary); --jungle:var(--good);
-  --flag:var(--warn); --flag-soft:var(--warn-container); --ok:var(--good); --ok-soft:var(--good-container);
-  --display:var(--font); --body:var(--font);
+  --lagoon:var(--primary); --lagoon-soft:var(--primary-container);
 }
-.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--font);text-wrap:balance;line-height:1.15;margin:0}
-h1{font-size:clamp(2rem,6vw,3rem);font-weight:600;letter-spacing:-.015em;font-variation-settings:"opsz" 96}
-h2{font-size:clamp(1.5rem,4vw,1.9rem);font-weight:600}
-h3{font-size:1.125rem;font-weight:600}
+.wrap{max-width:780px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px 64px;display:grid;gap:16px}
+h1,h2,h3{font-family:var(--font);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(1.75rem,5.5vw,2.5rem);font-weight:600;letter-spacing:-.015em;font-variation-settings:"opsz" 96}
+h3{font-size:1.0625rem;font-weight:600}
 p{margin:0;max-width:68ch}
-a{color:var(--lagoon)}
 .eyebrow{font:500 .75rem/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
-header.hero{padding-block:1.5rem 2rem;background:linear-gradient(170deg,var(--surface-container),var(--bg) 75%);border-bottom:1px solid var(--line)}
-header.hero .wrap{display:grid;gap:.9rem}
-.lede{font-size:1.1rem;color:var(--muted)}
-.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.85rem;color:var(--muted)}
-.meta b{color:var(--ink);font-weight:600}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface-container)}
-.topbar{background:var(--surface-container)}
-nav.chips{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface-container);border-bottom:1px solid var(--line)}
-nav.chips .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
-.chip{flex:0 0 auto;display:inline-flex;align-items:center;height:32px;font-size:.875rem;font-weight:500;text-decoration:none;color:var(--on-surface-variant);border:1px solid var(--outline);border-radius:8px;padding:0 12px;background:transparent}
-.chip:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
-main section{padding-block:2.5rem;border-bottom:1px solid var(--line);scroll-margin-top:3.75rem}
-main section .wrap{display:grid;gap:1.1rem}
+.ph{display:grid;gap:10px;padding-top:8px}
+.lede{font-size:1.0625rem;color:var(--muted)}
+.ol-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.hint{font-size:.875rem;color:var(--muted)}
+.outline{display:grid;gap:8px}
+.ps{background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 12px);min-width:0}
+.ps[open]{background:var(--card);border-color:var(--outline)}
+.ps summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:32px 1fr 24px;gap:14px;align-items:start;padding:14px 14px 14px 16px;border-radius:16px}
+.ps summary::-webkit-details-marker{display:none}
+.ps summary:hover{background:color-mix(in srgb,var(--on-surface) 5%,transparent)}
+.ps-n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container);font:500 .875rem/1 var(--mono)}
+.ps-n:empty{background:var(--surface-high)}
+.ps-t{display:grid;gap:4px;min-width:0}
+.ps-h{font-size:1.0625rem;font-weight:600;line-height:1.3}
+.ps-s{font-size:.9rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ps[open] .ps-s{-webkit-line-clamp:unset;display:block}
+svg.chev{width:24px;height:24px;fill:var(--on-surface-variant);margin-top:4px;transition:transform .15s}
+.ps[open] svg.chev{transform:rotate(180deg)}
+.ps-body{padding:4px 16px 20px;border-top:1px solid var(--outline-variant)}
+.ps-in{display:grid;gap:1rem;padding-top:14px}
+.ps-in > p:first-child{color:var(--muted)}
+
 .sec-head{display:grid;gap:.35rem}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;display:grid;gap:.5rem;align-content:start;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.box{background:var(--surface-low);border-radius:12px;padding:14px 16px;display:grid;gap:.5rem;align-content:start;min-width:0}
 ul,ol{margin:0;padding-left:1.2rem;display:grid;gap:.35rem}
 li{max-width:66ch}
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
-table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:560px}
-th,td{text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.875rem;min-width:560px}
+th,td{text-align:left;padding:.55rem .75rem;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--surface-low)}
 tr:last-child td{border-bottom:0}
 td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-.pkg{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.25rem;display:grid;gap:.75rem;min-width:0}
+.pkg{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:.6rem;min-width:0}
 .pkg-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;align-items:baseline}
-.tag{font:500 .75rem/1.4 var(--font);padding:.2rem .6rem;border-radius:8px;background:var(--secondary-container);color:var(--on-secondary-container);white-space:nowrap}
-.kv{display:grid;grid-template-columns:8.5rem 1fr;gap:.4rem .9rem;font-size:.95rem}
+.tag{font:500 .75rem/1.4 var(--font);padding:.15rem .55rem;border-radius:8px;background:var(--secondary-container);color:var(--on-secondary-container);white-space:nowrap}
+.kv{display:grid;grid-template-columns:8rem 1fr;gap:.4rem .9rem;font-size:.95rem}
 .kv dt{font-weight:600;color:var(--muted);font-size:.85rem;padding-top:.1rem}
 .kv dd{margin:0;min-width:0}
 .price{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.92em}
-.flag{background:var(--flag-soft);color:var(--on-warn-container);padding:.8rem 1rem;border-radius:12px;font-size:.92rem}
+.flag{background:var(--warn-container);color:var(--on-warn-container);padding:.75rem 1rem;border-radius:12px;font-size:.92rem}
 .flag b{color:inherit}
-.good{background:var(--ok-soft);color:var(--on-good-container);padding:.8rem 1rem;border-radius:12px;font-size:.92rem}
+.good{background:var(--good-container);color:var(--on-good-container);padding:.75rem 1rem;border-radius:12px;font-size:.92rem}
 .pill{display:inline-block;font:500 .7rem/1.5 var(--font);padding:0 .5rem;border-radius:8px;border:1px solid currentColor;margin-right:.35rem;white-space:nowrap}
 .p-info{color:var(--primary)}.p-plan{color:var(--good)}.p-book{color:var(--warn)}
-.blog li{list-style:none;margin-left:-1.2rem;padding:.55rem 0;border-bottom:1px dashed var(--line)}
+.blog li{list-style:none;margin-left:-1.2rem;padding:.5rem 0;border-bottom:1px dashed var(--line)}
 .blog li:last-child{border-bottom:0}
 .small{font-size:.85rem;color:var(--muted)}
+.meta{display:grid;gap:.25rem;font-size:.85rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
 .steps{counter-reset:s;list-style:none;padding:0}
 .steps li{counter-increment:s;display:grid;grid-template-columns:2rem 1fr;gap:.6rem}
-.steps li::before{content:counter(s);font-family:var(--mono);font-weight:500;color:var(--on-primary-container);background:var(--primary-container);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;font-size:.8rem}
-footer{padding-block:2rem 3rem;font-size:.85rem;color:var(--muted)}
-footer ul{gap:.25rem}
+.steps li::before{content:counter(s);font-family:var(--mono);font-weight:500;color:var(--on-secondary-container);background:var(--secondary-container);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;font-size:.8rem}
 @media (max-width:520px){.kv{grid-template-columns:1fr}.kv dt{padding-top:.4rem}}
 </style>
 </head>
@@ -165,7 +170,7 @@ footer ul{gap:.25rem}
 <header class="topbar gutter">
   <div class="topbar-in">
     <a class="icon-btn" href="./" aria-label="Inicio" data-aria-es="Inicio" data-aria-en="Home"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></a>
-    <p class="tb-title"><span class="es">Plan de crecimiento</span><span class="en">Growth plan</span></p>
+    <p class="tb-title"><span class="es">El plan</span><span class="en">The plan</span></p>
     <div class="tb-actions">
       <div class="seg" role="group" aria-label="Idioma / Language">
         <button type="button" id="lang-es" data-lang="es" aria-pressed="true"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>ES</button>
@@ -175,40 +180,21 @@ footer ul{gap:.25rem}
     </div>
   </div>
 </header>
-<div class="es" lang="es">
-<header class="hero" lang="es">
-  <div class="wrap">
+<main>
+<div class="es pane" lang="es">
+<div class="wrap">
+  <header class="ph">
     <span class="eyebrow">Plan de crecimiento · Primero Puerto Aventuras</span>
     <h1>Memo Tours and Adventures: hacia dónde crecer</h1>
     <p class="lede">Un plan de trabajo para que Guillermo ("Memo") sume paquetes, tours a la medida y servicios de concierge local al negocio de tours y traslados que ya tiene, empezando en Puerto Aventuras.</p>
-    <div class="meta">
-      <span><b>Preparado</b> 25 de noviembre de 2026</span>
-      <span><b>Basado en</b> su sitio web, su perfil de TripAdvisor, precios públicos y páginas oficiales consultadas ese día</span>
-      <span><b>No revisado</b> su Instagram (la página bloquea la lectura automática)</span>
-    </div>
-  </div>
-</header>
-
-<nav class="chips" aria-label="Secciones">
-  <div class="wrap">
-    <a class="chip" href="#hoy">Hoy</a>
-    <a class="chip" href="#paquetes">Paquetes</a>
-    <a class="chip" href="#concierge-es">A la medida y concierge</a>
-    <a class="chip" href="#blog-es">Plan de blog</a>
-    <a class="chip" href="#mejoras">Mejoras al sitio</a>
-    <a class="chip" href="#riesgos">Riesgos</a>
-    <a class="chip" href="#primeros30">Primeros 30 días</a>
-    <a class="chip" href="#fuentes">Fuentes</a>
-  </div>
-</nav>
-
-<main lang="es">
-
-<section id="hoy">
-  <div class="wrap">
+  </header>
+  <div class="ol-head"><span class="hint">Toca un tema para abrirlo.</span><button type="button" class="btn btn-text toggle-all" data-open="Abrir todo" data-close="Cerrar todo">Abrir todo</button></div>
+  <div class="outline">
+<details class="ps" id="hoy" data-idx="0">
+  <summary><span class="ps-n">1</span><span class="ps-t"><span class="ps-h">Cómo está el negocio hoy</span><span class="ps-s">Tours de un día y traslados en Playa, Puerto Aventuras y Tulum, por cotización en WhatsApp. Opiniones de 4.9, pero todavía sin paquetes ni políticas.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">1 · Punto de partida</span>
-      <h2>Cómo está el negocio hoy</h2>
       <p>Memo opera un negocio bilingüe (inglés y español) de tours de un día y traslados desde el aeropuerto que cubre Playa del Carmen, Puerto Aventuras y Tulum. Los clientes reservan pidiendo una cotización, sobre todo por WhatsApp, y el sitio promete respuesta en menos de 24 horas.</p>
     </div>
 
@@ -255,13 +241,13 @@ footer ul{gap:.25rem}
       </div>
     </div>
   </div>
-</section>
-
-<section id="paquetes">
-  <div class="wrap">
+</div>
+</details>
+<details class="ps" id="paquetes" data-idx="1">
+  <summary><span class="ps-n">2</span><span class="ps-t"><span class="ps-h">Paquetes que salen de Puerto Aventuras</span><span class="ps-s">Cinco paquetes desde Puerto Aventuras: parejas, familias, pesca, grupos, y llegada o estancias largas. Los precios son puntos de partida para probar.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">2 · Paquetes</span>
-      <h2>Paquetes que salen de Puerto Aventuras</h2>
       <p>Cada paquete aprovecha tours y socios que ya tiene, y se queda a unos 30 minutos de Puerto Aventuras cuando se puede. Los precios de referencia vienen de sus propias tarifas y de anuncios públicos consultados el 25 de noviembre de 2026.</p>
     </div>
     <div class="flag"><b>Los precios son puntos de partida para probar.</b> No se han comparado con los costos reales de Memo (guías, gasolina, socios con barco, entradas) ni con sus márgenes. Las cifras en USD son las que mostraban los anuncios; no se aplicó tipo de cambio.</div>
@@ -318,13 +304,13 @@ footer ul{gap:.25rem}
       </dl>
     </article>
   </div>
-</section>
-
-<section id="concierge-es">
-  <div class="wrap">
+</div>
+</details>
+<details class="ps" id="concierge-es" data-idx="2">
+  <summary><span class="ps-n">3</span><span class="ps-t"><span class="ps-h">Convertir lo que sabe y a quién conoce en servicios</span><span class="ps-s">Convertir lo que ya hace de manera informal en servicios pagados: tours a la medida, restaurantes, referencias de rentas y socios locales de confianza.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">3 · A la medida y concierge</span>
-      <h2>Convertir lo que sabe y a quién conoce en servicios</h2>
       <p>Las opiniones muestran que sus clientes ya valoran los días personales y hechos a la medida. Estos servicios lo hacen oficial y cobrado.</p>
     </div>
     <div class="grid2">
@@ -362,13 +348,13 @@ footer ul{gap:.25rem}
     </div>
     <div class="flag"><b>Contraargumento:</b> cualquier mal día de un socio termina en las opiniones de Memo. Empezar con pocas personas por las que él respondería personalmente, y sumar más solo después de que los clientes las califiquen bien.</div>
   </div>
-</section>
-
-<section id="blog-es">
-  <div class="wrap">
+</div>
+</details>
+<details class="ps" id="blog-es" data-idx="3">
+  <summary><span class="ps-n">4</span><span class="ps-t"><span class="ps-h">Artículos que responden lo que buscan los viajeros antes de reservar</span><span class="ps-s">17 ideas de artículos que responden lo que buscan los viajeros antes de reservar, en cuatro grupos. Dos al mes es realista.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">4 · Plan de blog</span>
-      <h2>Artículos que responden lo que buscan los viajeros antes de reservar</h2>
       <p>Cada entrada debe enlazar a un paquete y terminar con el botón de WhatsApp. Dos entradas al mes es realista para una sola persona.</p>
       <p class="small"><span class="pill p-info">Investigación</span>primeras preguntas <span class="pill p-plan">Planeación</span>comparando opciones <span class="pill p-book">Listo para reservar</span>cerca de comprar</p>
     </div>
@@ -416,14 +402,13 @@ footer ul{gap:.25rem}
     <div class="good"><b>Para las entradas de seguridad:</b> el Departamento de Estado de EE. UU. tiene a México en Nivel 2, "Exercise increased caution" (mayor precaución), emitida el 29 de mayo de 2026. Quintana Roo también está en mayor precaución, con el consejo de estar atento al entorno de noche y quedarse en calles bien iluminadas y zonas turísticas. El Visitax, el impuesto estatal al turista, es obligatorio para visitantes extranjeros. Citar estos datos con fecha y enlace, y volver a verificarlos antes de cada entrada.</div>
     <div class="flag"><b>Contraargumentos:</b> las entradas nuevas de un blog suelen tardar meses en atraer búsquedas, mientras que pedir opiniones en Google y TripAdvisor a clientes contentos da resultados antes. Las entradas sobre seguridad deben reportar lo que dicen las fuentes oficiales y nunca prometer que un lugar es seguro.</div>
   </div>
-</section>
-
-<section id="mejoras">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">5 · Mejoras rápidas al sitio</span>
-      <h2>Cambios pequeños, más o menos en orden de impacto</h2>
-    </div>
+</div>
+</details>
+<details class="ps" id="mejoras" data-idx="4">
+  <summary><span class="ps-n">5</span><span class="ps-t"><span class="ps-h">Cambios pequeños, más o menos en orden de impacto</span><span class="ps-s">Ocho cambios pequeños al sitio, en orden de impacto. Primero, mostrar las opiniones y agregar políticas.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+    
     <ol class="steps">
       <li><span><b>Mostrar las opiniones.</b> Poner la calificación de 4.9 y tres frases cortas de clientes en la página de inicio, con enlace a TripAdvisor. Crear un Perfil de Empresa en Google y pedir a los clientes recientes que dejen su opinión ahí también.</span></li>
       <li><span><b>Pasar el perfil de TripAdvisor a tours.</b> Hoy aparece en transporte, donde quien busca tours no lo ve. Preguntarle a TripAdvisor si se puede cambiar la categoría.</span></li>
@@ -435,14 +420,13 @@ footer ul{gap:.25rem}
       <li><span><b>Anticipo en línea, opcional.</b> Un enlace de pago para apartar la fecha. Luego hay que manejar comisiones de tarjeta y reembolsos, así que conviene pensarlo antes.</span></li>
     </ol>
   </div>
-</section>
-
-<section id="riesgos">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">6 · Riesgos y contraargumentos</span>
-      <h2>Qué podría salir mal</h2>
-    </div>
+</div>
+</details>
+<details class="ps" id="riesgos" data-idx="5">
+  <summary><span class="ps-n">6</span><span class="ps-t"><span class="ps-h">Qué podría salir mal</span><span class="ps-s">Registro (RNT), permisos de lancha y pesca, seguro, abarcar demasiado, competencia y comisiones de socios.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+    
     <div class="grid2">
       <div class="box">
         <h3>Registro e inspecciones</h3>
@@ -471,14 +455,13 @@ footer ul{gap:.25rem}
       </div>
     </div>
   </div>
-</section>
-
-<section id="primeros30">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">7 · Primeros 30 días</span>
-      <h2>Un orden realista para empezar</h2>
-    </div>
+</div>
+</details>
+<details class="ps" id="primeros30" data-idx="6">
+  <summary><span class="ps-n">7</span><span class="ps-t"><span class="ps-h">Un orden realista para empezar</span><span class="ps-s">Seis pasos para empezar: confirmar el registro, elegir dos paquetes, conseguir socios de lancha, mejorar el sitio, pedir opiniones y publicar dos artículos.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+    
     <ol class="steps">
       <li><span>Confirmar su inscripción en el RNT, su credencial de guía y lo que cubre su seguro.</span></li>
       <li><span>Elegir dos paquetes para lanzar. Parejas y familias encajan con lo que ya hace mejor.</span></li>
@@ -497,13 +480,18 @@ footer ul{gap:.25rem}
       </ul>
     </div>
   </div>
-</section>
-
-</main>
-
-<footer id="fuentes" lang="es">
-  <div class="wrap" style="display:grid;gap:.6rem">
-    <span class="eyebrow">Fuentes, consultadas el 25 de noviembre de 2026</span>
+</div>
+</details>
+<details class="ps" id="fuentes" data-idx="7">
+  <summary><span class="ps-n"></span><span class="ps-t"><span class="ps-h">Fuentes</span><span class="ps-s">En qué se basa este plan, consultado el 25 de noviembre de 2026, y qué no se revisó.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+<div class="meta">
+      <span><b>Preparado</b> 25 de noviembre de 2026</span>
+      <span><b>Basado en</b> su sitio web, su perfil de TripAdvisor, precios públicos y páginas oficiales consultadas ese día</span>
+      <span><b>No revisado</b> su Instagram (la página bloquea la lectura automática)</span>
+    </div>
+<p class="small">Fuentes, consultadas el 25 de noviembre de 2026</p>
     <ul>
       <li><a href="https://www.memotoursadventures.com/tours/" target="_blank" rel="noopener">Memo Tours and Adventures</a>: páginas de inicio, tours, contacto y blog</li>
       <li><a href="https://www.tripadvisor.com.mx/Attraction_Review-g150812-d10283463-Reviews-Memo_Tours_Adventures-Playa_del_Carmen_Yucatan_Peninsula.html" target="_blank" rel="noopener">Perfil en TripAdvisor</a>: calificación, número de opiniones y las 10 más recientes</li>
@@ -517,42 +505,25 @@ footer ul{gap:.25rem}
     </ul>
     <p>Sin verificar: su Instagram, sus costos, su estatus de registro y todo lo que deba confirmar un abogado o contador.</p>
   </div>
-</footer>
 </div>
-<div class="en" lang="en">
-<header class="hero">
-  <div class="wrap">
+</details>
+  </div>
+</div>
+</div>
+<div class="en pane" lang="en">
+<div class="wrap">
+  <header class="ph">
     <span class="eyebrow">Growth plan · Puerto Aventuras first</span>
     <h1>Memo Tours and Adventures: where to grow next</h1>
     <p class="lede">A working plan for Guillermo ("Memo") to add packages, custom tours and local concierge services on top of the tour and transfer business he already runs, starting in Puerto Aventuras.</p>
-    <div class="meta">
-      <span><b>Prepared</b> Nov 25, 2026</span>
-      <span><b>Based on</b> his website, his TripAdvisor listing, public price listings and official pages read that day</span>
-      <span><b>Not reviewed</b> his Instagram (the page blocks automated reading)</span>
-    </div>
-  </div>
-</header>
-
-<nav class="chips" aria-label="Sections">
-  <div class="wrap">
-    <a class="chip" href="#today">Today</a>
-    <a class="chip" href="#packages">Packages</a>
-    <a class="chip" href="#concierge">Custom and concierge</a>
-    <a class="chip" href="#blog">Blog plan</a>
-    <a class="chip" href="#fixes">Site fixes</a>
-    <a class="chip" href="#risks">Risks</a>
-    <a class="chip" href="#next">First 30 days</a>
-    <a class="chip" href="#sources">Sources</a>
-  </div>
-</nav>
-
-<main>
-
-<section id="today">
-  <div class="wrap">
+  </header>
+  <div class="ol-head"><span class="hint">Tap a topic to open it.</span><button type="button" class="btn btn-text toggle-all" data-open="Open all" data-close="Close all">Open all</button></div>
+  <div class="outline">
+<details class="ps" id="today" data-idx="0">
+  <summary><span class="ps-n">1</span><span class="ps-t"><span class="ps-h">Where the business is today</span><span class="ps-s">Day tours and airport transfers in Playa, Puerto Aventuras and Tulum, booked by WhatsApp quote. Strong 4.9 reviews, but no packages or policies yet.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">1 · Baseline</span>
-      <h2>Where the business is today</h2>
       <p>Memo runs a bilingual (English and Spanish) day-tour and airport-transfer business covering Playa del Carmen, Puerto Aventuras and Tulum. Guests book by asking for a quote, mostly over WhatsApp, and the site promises a reply within 24 hours.</p>
     </div>
 
@@ -599,13 +570,13 @@ footer ul{gap:.25rem}
       </div>
     </div>
   </div>
-</section>
-
-<section id="packages">
-  <div class="wrap">
+</div>
+</details>
+<details class="ps" id="packages" data-idx="1">
+  <summary><span class="ps-n">2</span><span class="ps-t"><span class="ps-h">Packages, built from Puerto Aventuras outward</span><span class="ps-s">Five bundles built from Puerto Aventuras outward: couples, families, fishing, groups, and arrival or long stays. Prices are starting points to test.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">2 · Packages</span>
-      <h2>Packages, built from Puerto Aventuras outward</h2>
       <p>Each package reuses tours and partners he already has, and stays within about 30 minutes of Puerto Aventuras where possible. Price anchors come from his own rates and from public listings read on Nov 25, 2026.</p>
     </div>
     <div class="flag"><b>Prices are starting points to test.</b> They have not been checked against Memo's real costs (guides, fuel, boat partners, admissions) or his margins. USD figures are as the listings showed them; no exchange rate was applied.</div>
@@ -662,13 +633,13 @@ footer ul{gap:.25rem}
       </dl>
     </article>
   </div>
-</section>
-
-<section id="concierge">
-  <div class="wrap">
+</div>
+</details>
+<details class="ps" id="concierge" data-idx="2">
+  <summary><span class="ps-n">3</span><span class="ps-t"><span class="ps-h">Turn what he knows and who he knows into services</span><span class="ps-s">Turn what he already does informally into paid services: custom tours, restaurant picks, rental referrals and trusted local partners.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">3 · Custom and concierge</span>
-      <h2>Turn what he knows and who he knows into services</h2>
       <p>Reviews show guests already value his personal, built-to-order days. These services make that official and paid.</p>
     </div>
     <div class="grid2">
@@ -706,13 +677,13 @@ footer ul{gap:.25rem}
     </div>
     <div class="flag"><b>Counter-argument:</b> every partner's bad day lands on Memo's reviews. Start with a few people he would personally vouch for, and add more only after guests rate them.</div>
   </div>
-</section>
-
-<section id="blog">
-  <div class="wrap">
+</div>
+</details>
+<details class="ps" id="blog" data-idx="3">
+  <summary><span class="ps-n">4</span><span class="ps-t"><span class="ps-h">Articles that answer what travelers search before booking</span><span class="ps-s">17 article ideas that answer what travelers search before booking, in four groups. Two posts a month is realistic.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
     <div class="sec-head">
-      <span class="eyebrow">4 · Blog plan</span>
-      <h2>Articles that answer what travelers search before booking</h2>
       <p>Each post should link to one package and end with the WhatsApp button. Two posts a month is realistic for one person.</p>
       <p class="small"><span class="pill p-info">Research</span>early questions <span class="pill p-plan">Planning</span>comparing options <span class="pill p-book">Ready to book</span>close to buying</p>
     </div>
@@ -760,14 +731,13 @@ footer ul{gap:.25rem}
     <div class="good"><b>For the safety posts:</b> the US State Department rates Mexico Level 2, "Exercise increased caution" (issued May 29, 2026). Quintana Roo is also at increased caution, with advice to watch surroundings after dark and stay on well-lit streets and in tourist zones. Visitax, the state tourist fee, is mandatory for foreign visitors. Quote these with the date and a link, and recheck before each post.</div>
     <div class="flag"><b>Counter-arguments:</b> new blog posts often take months to bring in searches, while asking happy guests for Google and TripAdvisor reviews pays off sooner. Safety posts should report what official sources say and never promise that a place is safe.</div>
   </div>
-</section>
-
-<section id="fixes">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">5 · Quick site fixes</span>
-      <h2>Small changes, roughly in order of payoff</h2>
-    </div>
+</div>
+</details>
+<details class="ps" id="fixes" data-idx="4">
+  <summary><span class="ps-n">5</span><span class="ps-t"><span class="ps-h">Small changes, roughly in order of payoff</span><span class="ps-s">Eight small website changes, in order of payoff. Showing reviews and adding policies come first.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+    
     <ol class="steps">
       <li><span><b>Show the reviews.</b> Put the 4.9 rating and three short guest quotes on the home page, linked to TripAdvisor. Set up a Google Business Profile and ask recent guests to review there too.</span></li>
       <li><span><b>Move the TripAdvisor listing into tours.</b> It currently ranks under transportation, where tour shoppers will not see it. Ask TripAdvisor whether the category can change.</span></li>
@@ -779,14 +749,13 @@ footer ul{gap:.25rem}
       <li><span><b>Optional online deposit.</b> A payment link to hold a date. Card fees and refunds then need handling, so weigh that first.</span></li>
     </ol>
   </div>
-</section>
-
-<section id="risks">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">6 · Risks and counter-arguments</span>
-      <h2>What could go wrong</h2>
-    </div>
+</div>
+</details>
+<details class="ps" id="risks" data-idx="5">
+  <summary><span class="ps-n">6</span><span class="ps-t"><span class="ps-h">What could go wrong</span><span class="ps-s">Registration (RNT), boat and fishing permits, insurance, spreading too thin, competition and partner commissions.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+    
     <div class="grid2">
       <div class="box">
         <h3>Registration and inspections</h3>
@@ -815,14 +784,13 @@ footer ul{gap:.25rem}
       </div>
     </div>
   </div>
-</section>
-
-<section id="next">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">7 · First 30 days</span>
-      <h2>A realistic order to start</h2>
-    </div>
+</div>
+</details>
+<details class="ps" id="next" data-idx="6">
+  <summary><span class="ps-n">7</span><span class="ps-t"><span class="ps-h">A realistic order to start</span><span class="ps-s">Six steps to start: confirm registration, pick two packages, line up boat partners, fix the site, ask for reviews, publish two posts.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+    
     <ol class="steps">
       <li><span>Confirm his RNT registration and guide credential, and what his insurance covers.</span></li>
       <li><span>Pick two packages to launch. Couples and families fit what he already does best.</span></li>
@@ -841,13 +809,18 @@ footer ul{gap:.25rem}
       </ul>
     </div>
   </div>
-</section>
-
-</main>
-
-<footer id="sources">
-  <div class="wrap" style="display:grid;gap:.6rem">
-    <span class="eyebrow">Sources, read Nov 25, 2026</span>
+</div>
+</details>
+<details class="ps" id="sources" data-idx="7">
+  <summary><span class="ps-n"></span><span class="ps-t"><span class="ps-h">Sources</span><span class="ps-s">What this plan is based on, read Nov 25, 2026, and what was not checked.</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></summary>
+  <div class="ps-body">
+  <div class="ps-in">
+<div class="meta">
+      <span><b>Prepared</b> Nov 25, 2026</span>
+      <span><b>Based on</b> his website, his TripAdvisor listing, public price listings and official pages read that day</span>
+      <span><b>Not reviewed</b> his Instagram (the page blocks automated reading)</span>
+    </div>
+<p class="small">Sources, read Nov 25, 2026</p>
     <ul>
       <li><a href="https://www.memotoursadventures.com/tours/" target="_blank" rel="noopener">Memo Tours and Adventures</a>: home, tours, contact and blog pages</li>
       <li><a href="https://www.tripadvisor.com.mx/Attraction_Review-g150812-d10283463-Reviews-Memo_Tours_Adventures-Playa_del_Carmen_Yucatan_Peninsula.html" target="_blank" rel="noopener">TripAdvisor listing</a>: rating, count and the 10 newest reviews</li>
@@ -861,8 +834,12 @@ footer ul{gap:.25rem}
     </ul>
     <p>Not checked: his Instagram, his costs, his registration status, and anything a lawyer or accountant should confirm.</p>
   </div>
-</footer>
 </div>
+</details>
+  </div>
+</div>
+</div>
+</main>
 
 <script>
 window.PAGE_TITLES={es:'Plan de crecimiento de Memo',en:'Memo Tours Growth Plan'};
@@ -907,6 +884,40 @@ if(themeBtn)themeBtn.addEventListener('click',()=>{
 if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',paintChrome);
 paintChrome();
 
+
+const panes=()=>[...document.querySelectorAll('.pane')];
+const visiblePane=()=>document.querySelector('.pane.'+currentLang());
+function syncToggle(){
+  const p=visiblePane();if(!p)return;const b=p.querySelector('.toggle-all');
+  const allOpen=[...p.querySelectorAll('.ps')].every(d=>d.open);
+  b.textContent=allOpen?b.dataset.close:b.dataset.open;
+}
+// Open the topic a link points at, in whichever language is showing.
+function openHash(scroll){
+  const id=decodeURIComponent(location.hash.slice(1));if(!id)return;
+  let el=document.getElementById(id);if(!el||!el.classList.contains('ps'))return;
+  if(!el.closest('.pane').classList.contains(currentLang())){
+    el=visiblePane().querySelector(`.ps[data-idx="${el.dataset.idx}"]`)||el;
+  }
+  el.open=true;syncToggle();
+  if(scroll)requestAnimationFrame(()=>el.scrollIntoView({block:'start'}));
+}
+document.querySelectorAll('.toggle-all').forEach(b=>b.addEventListener('click',()=>{
+  const ds=[...b.closest('.pane').querySelectorAll('.ps')];const open=!ds.every(d=>d.open);
+  ds.forEach(d=>d.open=open);syncToggle();
+}));
+document.querySelectorAll('.ps').forEach(d=>d.addEventListener('toggle',()=>{
+  syncToggle();
+  if(d.open&&d.closest('.pane').classList.contains(currentLang())){try{history.replaceState(null,'','#'+d.id)}catch(e){}}
+}));
+window.addEventListener('hashchange',()=>openHash(true));
+document.addEventListener('memo:lang',()=>{
+  // Keep the same topics open when switching language.
+  const [a,b]=currentLang()==='es'?['en','es']:['es','en'];
+  const from=document.querySelectorAll('.pane.'+a+' .ps'),to=document.querySelectorAll('.pane.'+b+' .ps');
+  from.forEach((d,i)=>{if(to[i])to[i].open=d.open});syncToggle();
+});
+openHash(true);syncToggle();
 
 </script>
 </body>

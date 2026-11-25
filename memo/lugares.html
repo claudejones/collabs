@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hoja de lugares de Memo</title>
+<title>Tus lugares</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,69 +99,66 @@ svg.i.s18{width:18px;height:18px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 
 
-/* Layout: place list beside the editor on wide screens, stacked on phones; four numbered section cards per place */
-.topbar{position:sticky;top:env(safe-area-inset-top,0px);background:var(--surface-container)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface-container)}
-.shell{max-width:1100px;margin:0 auto;padding-block:16px 120px;display:grid;gap:16px}
-.intro{background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;padding:4px 16px}
-.intro summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;min-height:48px;font-weight:600}
-.intro summary::-webkit-details-marker{display:none}
-.intro summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid var(--on-surface-variant);border-bottom:2px solid var(--on-surface-variant);transform:rotate(45deg);transition:transform .15s}
-.intro[open] summary::after{transform:rotate(-135deg)}
-.intro-body{display:grid;gap:10px;padding:0 0 14px}
-.intro-body p{margin:0;max-width:70ch;color:var(--on-surface-variant)}
-.qs{margin:0;padding-left:1.3rem;display:grid;gap:4px}
-.status-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-size:.875rem;color:var(--on-surface-variant)}
-.save-chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;background:var(--surface-container);color:var(--on-surface-variant);font-weight:500}
+/* Layout: one narrow column. Overview of places, or a five-step guide for one place with a sticky Back/Next bar */
+.topbar{background:var(--surface)}
+.shell{max-width:680px;margin:0 auto;padding-block:8px 40px;display:grid;gap:16px}
+h1,h2{margin:0;text-wrap:balance}
+.ov-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding-top:8px}
+.ov-head h1{font-size:clamp(1.75rem,6vw,2.25rem);font-weight:600;letter-spacing:-.01em;font-variation-settings:"opsz" 72}
+.sub{margin:0;color:var(--on-surface-variant);font-size:.95rem}
+.save-chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;background:var(--surface-container);color:var(--on-surface-variant);font-size:.8125rem;font-weight:500}
 .save-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--good)}
-.save-chip.bad{background:var(--error-container);color:var(--on-error-container)}
+.save-chip.bad{background:var(--error-container);color:var(--on-error-container);height:auto;padding:8px 12px}
 .save-chip.bad .dot{background:var(--error)}
-.layout{display:grid;gap:16px;align-items:start}
-@media (min-width:900px){.layout{grid-template-columns:300px minmax(0,1fr)}.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
-.side{display:grid;gap:8px;min-width:0}
-.side-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 4px 0}
-.side-head h2{margin:0;font-size:.875rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--on-surface-variant)}
-.side-head .count{font:500 .8rem/1 var(--mono);color:var(--on-surface-variant)}
-.places{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-.prow{width:100%;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 12px;text-align:left;border:0;border-radius:12px;padding:10px 14px;background:transparent;color:var(--on-surface);font:inherit;cursor:pointer;min-height:56px}
-.prow:hover{background:color-mix(in srgb,var(--on-surface) 8%,transparent)}
-.prow[aria-current="true"]{background:var(--secondary-container);color:var(--on-secondary-container)}
-.prow .pname{font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.prow .pcount{font:500 .75rem/1 var(--mono);color:inherit;opacity:.8;white-space:nowrap}
-.dots{grid-column:1/-1;display:flex;gap:4px}
-.dots i{height:4px;flex:1;border-radius:2px;background:var(--outline-variant)}
-.dots i.on{background:var(--primary)}
-.prow[aria-current="true"] .dots i:not(.on){background:color-mix(in srgb,var(--on-secondary-container) 22%,transparent)}
-.add-place{justify-self:start;margin:4px 0 0 4px}
-.editor{display:grid;gap:16px;min-width:0}
-.ed-head{background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;padding:16px;display:grid;gap:12px}
-.ed-top{display:flex;align-items:flex-start;gap:8px}
-.ed-top .field{flex:1;min-width:0}
-.ed-tools{display:flex;gap:2px;padding-top:8px}
-.prog{display:flex;flex-wrap:wrap;gap:8px}
-.pchip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--outline-variant);font-size:.8125rem;font-weight:500;color:var(--on-surface-variant);text-decoration:none}
-.pchip.on{background:var(--primary-container);border-color:transparent;color:var(--on-primary-container)}
-.pchip svg{width:16px;height:16px}
-.pchip:not(.on) svg{display:none}
-.confirm{background:var(--error-container);color:var(--on-error-container);border-radius:12px;padding:12px 14px;display:grid;gap:10px}
-.confirm p{margin:0}
-.confirm .row{display:flex;flex-wrap:wrap;gap:8px}
-.confirm.neutral{background:var(--tertiary-container);color:var(--on-tertiary-container)}
 
-.sec{background:var(--card);border:1px solid var(--outline-variant);border-radius:16px;padding:16px;display:grid;gap:14px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 80px);min-width:0}
-.sec-h{display:grid;grid-template-columns:36px 1fr auto;gap:2px 12px;align-items:center}
-.sec-n{grid-row:span 2;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--surface-high);color:var(--on-surface);font:500 .9rem/1 var(--mono)}
-.sec.on .sec-n{background:var(--primary);color:var(--on-primary)}
-.sec-h h3{margin:0;font-size:1.125rem;font-weight:600;line-height:1.3}
-.sec-h p{margin:0;grid-column:2/4;font-size:.9rem;color:var(--on-surface-variant)}
-.sec-state{font-size:.75rem;font-weight:500;color:var(--on-surface-variant);white-space:nowrap}
-.sec.on .sec-state{color:var(--primary)}
+.welcome{background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:20px;padding:24px 20px;display:grid;gap:14px}
+.welcome h2{font-size:1.375rem;font-weight:600;line-height:1.25}
+.how{margin:0;padding:0;list-style:none;counter-reset:h;display:grid;gap:10px}
+.how li{counter-increment:h;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.how li::before{content:counter(h);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container);font:500 .8rem/1 var(--mono)}
+.small{font-size:.875rem;color:var(--on-surface-variant);margin:0}
+.welcome .btn{justify-self:start}
+
+.pc{background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;padding:8px 8px 10px;display:grid;gap:2px;scroll-margin-top:16px;min-width:0}
+.pc-top{display:flex;align-items:center;gap:4px;padding:4px 4px 6px 12px}
+.pc-top h2{flex:1;min-width:0;font-size:1.25rem;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.pc-prog{font:500 .75rem/1 var(--mono);color:var(--on-surface-variant);white-space:nowrap;margin-right:4px}
+.pc-row{display:grid;grid-template-columns:7.5rem 1fr 20px;gap:10px;align-items:start;width:100%;text-align:left;background:transparent;border:0;border-radius:10px;padding:10px 12px;font:inherit;color:inherit;cursor:pointer}
+.pc-row:hover{background:color-mix(in srgb,var(--on-surface) 6%,transparent)}
+.pc-l{font-size:.8125rem;font-weight:600;color:var(--on-surface-variant);padding-top:1px}
+.pc-v{font-size:.95rem;min-width:0;overflow-wrap:anywhere}
+.pc-v.none{color:var(--on-surface-variant);opacity:.75;font-style:italic}
+.pc-row svg{width:18px;height:18px;fill:var(--on-surface-variant);opacity:.6;margin-top:2px}
+@media (max-width:460px){.pc-row{grid-template-columns:1fr 20px}.pc-l{grid-column:1}.pc-v{grid-column:1}.pc-row svg{grid-row:1/3;grid-column:2}}
+.confirm{background:var(--error-container);color:var(--on-error-container);border-radius:12px;padding:12px 14px;display:grid;gap:10px;margin:4px}
+.confirm p{margin:0}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.add-row{display:flex;justify-content:flex-start}
+
+/* Guide */
+.wz{display:grid;gap:16px}
+.wz-top{display:flex;align-items:center;gap:8px;padding-top:4px}
+.wz-place{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wz-count{font:500 .8125rem/1 var(--mono);color:var(--on-surface-variant);white-space:nowrap}
+.bar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.bar i{height:4px;border-radius:2px;background:var(--surface-highest)}
+.bar i.on{background:var(--primary)}
+.step{display:grid;gap:14px}
+.step-q{font-size:clamp(1.5rem,5.5vw,1.875rem);font-weight:600;line-height:1.2;letter-spacing:-.01em;outline:none;font-variation-settings:"opsz" 60}
+.step-help{margin:0;color:var(--on-surface-variant);font-size:1rem;max-width:60ch}
+.tip{margin:0;font-size:.875rem;color:var(--on-surface-variant);display:flex;gap:8px;align-items:flex-start}
+.tip::before{content:"";flex:0 0 6px;height:6px;margin-top:8px;border-radius:50%;background:var(--tertiary)}
+.ref{background:var(--surface-container);border-radius:12px;padding:12px 14px;display:grid;gap:6px;font-size:.9rem}
+.ref b{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--on-surface-variant)}
+.ref p{margin:0}
 .entries{display:grid;gap:10px}
 .entry{border:1px solid var(--outline-variant);border-radius:12px;padding:12px;display:grid;gap:10px;background:var(--surface-low);min-width:0}
 .entry-top{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
 .entry-top .icon-btn{margin-left:auto}
 .grid-2{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.empty{margin:0;font-size:.9rem;color:var(--on-surface-variant);padding:4px 2px}
+.err{color:var(--error);font-size:.875rem;margin:0}
+.wz-nav{position:sticky;bottom:0;z-index:15;display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--surface);border-top:1px solid var(--outline-variant);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));margin-top:8px}
+.wz-nav .spacer{flex:1}
 
 /* Outlined text fields */
 .field{position:relative;display:block;min-width:0}
@@ -173,28 +170,32 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .field input:focus,.field textarea:focus,.field select:focus{border:2px solid var(--primary);padding:21px 11px 7px}
 .field span.lbl{position:absolute;left:13px;top:7px;font-size:.75rem;font-weight:500;color:var(--on-surface-variant);pointer-events:none;letter-spacing:.01em}
 .field:focus-within span.lbl{color:var(--primary)}
-.field.big input{font-size:1.375rem;font-weight:600}
+.field.big input{font-size:1.25rem;font-weight:600}
 .field input::placeholder,.field textarea::placeholder{color:var(--on-surface-variant);opacity:.6}
 
-/* Filter / choice chips */
+/* Choice chips */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .fchip{position:relative;display:inline-flex}
 .fchip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.fchip span{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--outline);font-size:.875rem;font-weight:500;color:var(--on-surface-variant);cursor:pointer;user-select:none}
+.fchip span{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--outline);font-size:.875rem;font-weight:500;color:var(--on-surface-variant);cursor:pointer;user-select:none}
 .fchip span svg{width:18px;height:18px;display:none}
 .fchip input:checked+span{background:var(--secondary-container);border-color:transparent;color:var(--on-secondary-container)}
 .fchip input:checked+span svg{display:block}
 .fchip input:focus-visible+span{outline:3px solid var(--primary);outline-offset:2px}
 
-.data{background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;padding:16px;display:grid;gap:12px}
-.data h2{margin:0;font-size:1.125rem;font-weight:600}
-.data p{margin:0;color:var(--on-surface-variant);max-width:70ch;font-size:.95rem}
-.data .row{display:flex;flex-wrap:wrap;gap:8px}
-.data textarea{width:100%;min-height:160px;font:400 .8rem/1.45 var(--mono);color:var(--on-surface);background:var(--card);border:1px solid var(--outline);border-radius:8px;padding:10px 12px}
+.data{background:transparent;border:1px solid var(--outline-variant);border-radius:16px;padding:0 16px;margin-top:8px}
+.data summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;min-height:52px;font-weight:600}
+.data summary::-webkit-details-marker{display:none}
+.data summary::after{content:"";margin-left:auto;width:8px;height:8px;border-right:2px solid var(--on-surface-variant);border-bottom:2px solid var(--on-surface-variant);transform:rotate(45deg);transition:transform .15s}
+.data[open] summary::after{transform:rotate(-135deg)}
+.data-in{display:grid;gap:12px;padding-bottom:16px}
+.data-in > p{margin:0;color:var(--on-surface-variant);max-width:70ch;font-size:.95rem}
+.data textarea.code{width:100%;min-height:160px;font:400 .8rem/1.45 var(--mono);color:var(--on-surface);background:var(--card);border:1px solid var(--outline);border-radius:8px;padding:10px 12px}
 .msg{font-size:.875rem;margin:0}
 .msg.err{color:var(--error)}
 .msg.ok{color:var(--good)}
 .import-box{display:grid;gap:10px;border-top:1px solid var(--outline-variant);padding-top:12px}
+.confirm.neutral{background:var(--tertiary-container);color:var(--on-tertiary-container);margin:0}
 
 .snackbar{position:fixed;z-index:40;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));margin:0 auto;max-width:560px;display:flex;align-items:center;gap:8px;background:var(--inverse-surface);color:var(--inverse-on-surface);border-radius:8px;padding:6px 8px 6px 16px;min-height:48px;box-shadow:0 3px 8px rgba(0,0,0,.25)}
 .snackbar p{margin:0;flex:1;font-size:.875rem}
@@ -207,7 +208,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <header class="topbar gutter">
   <div class="topbar-in">
     <a class="icon-btn" href="./" aria-label="Inicio" data-aria-es="Inicio" data-aria-en="Home"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></a>
-    <p class="tb-title"><span class="es">Hoja de lugares</span><span class="en">Places worksheet</span></p>
+    <p class="tb-title"><span class="es">Tus lugares</span><span class="en">Your places</span></p>
     <div class="tb-actions">
       <div class="seg" role="group" aria-label="Idioma / Language">
         <button type="button" id="lang-es" data-lang="es" aria-pressed="true"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>ES</button>
@@ -219,64 +220,38 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </header>
 <main class="gutter">
 <div class="shell">
-  <details class="intro" id="intro" open>
-    <summary><span class="es">Cómo usar esta hoja</span><span class="en">How to use this worksheet</span></summary>
-    <div class="intro-body">
-      <p><span class="es">Ve lugar por lugar en la Riviera Maya. Para cada uno, piensa en cuatro preguntas:</span><span class="en">Go place by place across the Riviera Maya. For each one, think about four questions:</span></p>
-      <ol class="qs">
-        <li><span class="es">¿Qué hay que hacer? Restaurantes, actividades y lugares que no son para turistas.</span><span class="en">What is there to do? Restaurants, activities and places that are not for tourists.</span></li>
-        <li><span class="es">¿A quién conoces ahí? Contactos, amigos, socios.</span><span class="en">Who do you know there? Contacts, friends, partners.</span></li>
-        <li><span class="es">¿Qué tipos de tours tienen sentido?</span><span class="en">What kinds of tours make sense?</span></li>
-        <li><span class="es">¿Qué transporte se necesita? Chofer privado, renta o transporte público.</span><span class="en">What transport does it take? Private driver, rental or public transport.</span></li>
-      </ol>
-      <p><span class="es">No tiene que estar completo. Escribe lo que sepas y regresa después. Todo se guarda solo, en este dispositivo.</span><span class="en">It does not have to be complete. Write what you know and come back later. Everything saves on its own, on this device.</span></p>
-    </div>
-  </details>
+  <div id="app"></div>
 
-  <div class="status-row">
-    <span class="save-chip" id="save-chip"><span class="dot"></span><span id="save-text"></span></span>
-    <span id="summary"></span>
-  </div>
-
-  <div class="layout">
-    <aside class="side" aria-labelledby="places-h">
-      <div class="side-head"><h2 id="places-h"><span class="es">Lugares</span><span class="en">Places</span></h2><span class="count" id="place-count"></span></div>
-      <ul class="places" id="places"></ul>
-      <button type="button" class="btn btn-tonal has-icon add-place" id="add-place"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg><span class="es">Agregar lugar</span><span class="en">Add place</span></button>
-    </aside>
-    <div class="editor" id="editor" aria-live="off"></div>
-  </div>
-
-  <section class="data" aria-labelledby="data-h">
-    <h2 id="data-h"><span class="es">Guardar y compartir</span><span class="en">Save and share</span></h2>
-    <p><span class="es">Tu trabajo vive solo en este navegador. Para respaldarlo, pasarlo a otro teléfono o compartirlo, descárgalo o cópialo como archivo JSON. Para regresarlo, usa Importar.</span><span class="en">Your work lives only in this browser. To back it up, move it to another phone or share it, download or copy it as a JSON file. To bring it back, use Import.</span></p>
-    <div class="row">
-      <button type="button" class="btn btn-filled has-icon" id="dl-btn"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg><span class="es">Descargar JSON</span><span class="en">Download JSON</span></button>
-      <button type="button" class="btn btn-outlined has-icon" id="copy-btn"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="es">Copiar JSON</span><span class="en">Copy JSON</span></button>
-      <button type="button" class="btn btn-outlined has-icon" id="import-btn" aria-expanded="false" aria-controls="import-box"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg><span class="es">Importar</span><span class="en">Import</span></button>
-    </div>
-    <p class="msg" id="data-msg" role="status"></p>
-    <label class="sr" for="copy-area">JSON</label>
-    <textarea id="copy-area" readonly hidden></textarea>
-    <div class="import-box" id="import-box" hidden>
+  <details class="data" id="data-box">
+    <summary><span class="es">Respaldar o compartir</span><span class="en">Back up or share</span></summary>
+    <div class="data-in">
+      <p><span class="es">Lo que escribes vive solo en este navegador. Para respaldarlo, pasarlo a otro teléfono o compartirlo, descárgalo o cópialo. Para regresarlo, usa Importar.</span><span class="en">What you write lives only in this browser. To back it up, move it to another phone or share it, download or copy it. To bring it back, use Import.</span></p>
       <div class="row">
-        <button type="button" class="btn btn-tonal has-icon" id="file-btn"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg><span class="es">Elegir archivo .json</span><span class="en">Choose .json file</span></button>
-        <input type="file" id="file-input" accept=".json,application/json" hidden>
+        <button type="button" class="btn btn-tonal has-icon" id="dl-btn"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg><span class="es">Descargar</span><span class="en">Download</span></button>
+        <button type="button" class="btn btn-outlined has-icon" id="copy-btn"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg><span class="es">Copiar</span><span class="en">Copy</span></button>
+        <button type="button" class="btn btn-outlined has-icon" id="import-btn" aria-expanded="false" aria-controls="import-box"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg><span class="es">Importar</span><span class="en">Import</span></button>
       </div>
-      <label class="field"><span class="lbl"><span class="es">O pega el JSON aquí</span><span class="en">Or paste the JSON here</span></span><textarea id="paste-area" spellcheck="false"></textarea></label>
-      <div class="row">
-        <button type="button" class="btn btn-outlined" id="paste-check"><span class="es">Revisar JSON pegado</span><span class="en">Check pasted JSON</span></button>
-      </div>
-      <p class="msg err" id="import-err" role="alert"></p>
-      <div class="confirm neutral" id="import-confirm" hidden>
-        <p id="import-confirm-text"></p>
+      <p class="msg" id="data-msg" role="status"></p>
+      <label class="sr" for="copy-area">JSON</label>
+      <textarea class="code" id="copy-area" readonly hidden></textarea>
+      <div class="import-box" id="import-box" hidden>
         <div class="row">
-          <button type="button" class="btn btn-filled" id="import-yes"><span class="es">Reemplazar</span><span class="en">Replace</span></button>
-          <button type="button" class="btn btn-text" id="import-no"><span class="es">Cancelar</span><span class="en">Cancel</span></button>
+          <button type="button" class="btn btn-tonal has-icon" id="file-btn"><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg><span class="es">Elegir archivo</span><span class="en">Choose file</span></button>
+          <input type="file" id="file-input" accept=".json,application/json" hidden>
+        </div>
+        <label class="field"><span class="lbl"><span class="es">O pega aquí lo que copiaste</span><span class="en">Or paste what you copied here</span></span><textarea id="paste-area" spellcheck="false"></textarea></label>
+        <div class="row"><button type="button" class="btn btn-outlined" id="paste-check"><span class="es">Revisar</span><span class="en">Check</span></button></div>
+        <p class="msg err" id="import-err" role="alert"></p>
+        <div class="confirm neutral" id="import-confirm" hidden>
+          <p id="import-confirm-text"></p>
+          <div class="row">
+            <button type="button" class="btn btn-filled" id="import-yes"><span class="es">Reemplazar</span><span class="en">Replace</span></button>
+            <button type="button" class="btn btn-text" id="import-no"><span class="es">Cancelar</span><span class="en">Cancel</span></button>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </details>
 </div>
 </main>
 <div class="snackbar" id="snackbar" role="status" hidden>
@@ -286,7 +261,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 
 <script>
-window.PAGE_TITLES={es:'Hoja de lugares de Memo',en:"Memo's Places Worksheet"};
+window.PAGE_TITLES={es:'Tus lugares',en:'Your places'};
 
 const Prefs={
   get(k,d){try{const v=localStorage.getItem(k);return v==null?d:v}catch(e){return d}},
@@ -333,75 +308,87 @@ const SVG={back:"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z",f
 const ic=(n,c='i s18')=>`<svg class="${c}" viewBox="0 0 24 24" aria-hidden="true"><path d="${SVG[n]}"/></svg>`;
 const KEY='memo.lugares';
 const SCHEMA='memo-lugares', VERSION=1;
-const SEED=['Puerto Aventuras','Akumal','Xpu-Ha','Tulum','Playa del Carmen','Cobá'];
+const OLD_SEED=['Puerto Aventuras','Akumal','Xpu-Ha','Tulum','Playa del Carmen','Cobá'];
 const THING_TYPES=['restaurant','activity','local'];
 const PACKAGES=['couples','families','fishing','groups','arrival','custom'];
 const MODES=['driver','rental','colectivo','ado','boat','other'];
 const SECTIONS=['things','people','tours','transport'];
+const STEPS=['name','things','people','tours','transport'];
 
 const T={
  es:{
-  saved:'Guardado en este dispositivo', savedAt:'Guardado', notSaving:'No se está guardando en este navegador. Descarga o copia el JSON para no perder tu trabajo.',
-  summary:(n,c)=>`${c} de ${n} lugares con las 4 secciones`, of4:n=>`${n} de 4`,
-  newPlace:'Nuevo lugar', placeName:'Nombre del lugar', moveUp:'Subir', moveDown:'Bajar', del:'Borrar lugar',
+  title:'Tus lugares', saved:'Se guarda solo', savedAt:'Guardado', notSaving:'Este navegador no está guardando. Usa Respaldar para no perder tu trabajo.',
+  count:n=>n===1?'1 lugar':`${n} lugares`, tapToEdit:'Toca cualquier renglón para cambiarlo.',
+  w_title:'Ordena lo que sabes, un lugar a la vez',
+  w_1:'Escribe el nombre de un lugar que conoces bien.', w_2:'Contesta cuatro preguntas cortas sobre ese lugar.', w_3:'Repite con el siguiente. Aquí verás todo junto.',
+  w_note:'No tiene que estar completo. Todo se guarda solo en este teléfono o computadora.', start:'Empezar',
+  addAnother:'Agregar otro lugar', of4:n=>`${n} de 4`, none:'Sin llenar', edit:'Editar', delPlace:'Borrar lugar',
   delConfirm:n=>`¿Borrar ${n} y todo lo que escribiste ahí?`, yesDel:'Borrar', cancel:'Cancelar',
-  started:'Empezada', notStarted:'Sin empezar',
-  s_things:'Qué hacer', q_things:'Restaurantes, actividades y lugares que no son para turistas.',
-  s_people:'Gente que conoces', q_people:'¿A quién conoces ahí? Contactos, amigos, socios.',
-  s_tours:'Ideas de tours', q_tours:'¿Qué tipos de tours tienen sentido aquí?',
-  s_transport:'Transporte', q_transport:'¿Qué se necesita para llegar y moverse?',
-  t_restaurant:'Restaurante', t_activity:'Actividad', t_local:'Lugar local (no turístico)',
+  s_things:'Qué hacer', s_people:'Gente', s_tours:'Tours', s_transport:'Transporte',
+  stepOf:(i)=>`Paso ${i} de 5`, back:'Atrás', next:'Siguiente', finish:'Terminar', close:'Volver a tus lugares', newPlace:'Nuevo lugar',
+  q_name:'¿De qué lugar quieres hablar?', h_name:'Elige un lugar de la Riviera Maya que conozcas bien. Empieza por el que conoces mejor.', ph_name:'Ej.: Puerto Aventuras', placeName:'Nombre del lugar', needName:'Escribe el nombre del lugar para seguir.',
+  q_things:n=>`¿Qué hay que hacer en ${n}?`, h_things:'Piensa en lo que le recomendarías a un amigo: dónde comer, qué hacer y esos lugares que los turistas no conocen. Uno por tarjeta.',
+  q_people:n=>`¿A quién conoces en ${n}?`, h_people:'Capitanes, cocineros, dueños de restaurantes, guías, choferes: gente con la que podrías trabajar o a quien recomendarías.',
+  q_tours:n=>`¿Qué tours tendrían sentido en ${n}?`, h_tours:'Con lo que anotaste, ¿qué podrías armar? Si se parece a un paquete del plan, elígelo. Si no, déjalo a la medida.',
+  q_transport:n=>`¿Cómo llegan y cómo se mueven en ${n}?`, h_transport:'Marca todo lo que aplique y anota tiempos o detalles que importen.',
+  tip:'Si no se te ocurre nada, sigue al siguiente paso. Puedes regresar cuando quieras.',
+  youNoted:'Lo que anotaste aquí', t_restaurant:'Restaurante', t_activity:'Actividad', t_local:'Lugar local',
   name:'Nombre', notes:'Notas', ph_thing:'Ej.: mariscos frente al mar', ph_thingNotes:'Por qué vale la pena, precio, horario, a quién le gustaría',
-  role:'A qué se dedica', how:'Cómo lo conoces', ph_role:'Ej.: capitán de lancha', ph_how:'Ej.: amigo de la familia',
-  idea:'Idea de tour', details:'Qué incluye', fits:'Paquete del plan', none:'Sin elegir',
+  role:'A qué se dedica', how:'Cómo lo conoces', ph_pname:'Ej.: Don Luis', ph_role:'Ej.: capitán de lancha', ph_how:'Ej.: amigo de la familia', ph_pnotes:'Teléfono, cuándo está disponible, qué tan confiable es',
+  idea:'Idea de tour', details:'Qué incluye', fits:'Se parece a', nonePkg:'Sin elegir',
   ph_idea:'Ej.: mañana de cenotes para familias', ph_details:'Paradas, duración, para quién es, qué necesitas',
   p_couples:'Parejas', p_families:'Familias', p_fishing:'Pesca', p_groups:'Grupos', p_arrival:'Llegada y estancias largas', p_custom:'A la medida',
   m_driver:'Chofer privado', m_rental:'Auto rentado', m_colectivo:'Colectivo', m_ado:'Autobús ADO', m_boat:'Lancha', m_other:'Otro',
-  transportNotes:'Notas de transporte', ph_transport:'Tiempos de traslado, estacionamiento, dónde pasa el colectivo',
-  addThing:'Agregar algo que hacer', addPerson:'Agregar persona', addTour:'Agregar idea de tour',
-  emptyThings:'Todavía nada. Agrega un restaurante, una actividad o un lugar local.', emptyPeople:'Todavía nadie. Agrega a alguien que conozcas aquí.', emptyTours:'Todavía no hay ideas. Agrega una.',
-  delEntry:'Borrar', deleted:'Borrado', placeDeleted:n=>`${n} se borró`, imported:'Importado', noPlaces:'No hay lugares. Agrega uno para empezar.',
-  copied:'JSON copiado. Pégalo en un mensaje o en un archivo.', copyFallback:'No se pudo copiar solo. Selecciona el texto de abajo y cópialo.',
-  downloaded:'Se descargó el archivo. Si no ves la descarga, usa Copiar JSON.', dlFail:'Este navegador no permitió la descarga. Usa Copiar JSON.',
-  errJson:'No es un JSON válido. Revisa que lo copiaste completo.', errSchema:'Este archivo no es una hoja de lugares de Memo.', errNewer:'Este archivo es de una versión más nueva de la hoja.', errEmpty:'Pega el JSON primero.', errRead:'No se pudo leer el archivo.',
-  importConfirm:(cur,n)=>`Esto reemplaza tus ${cur} lugares actuales por los ${n} lugares del archivo. Lo de ahora se borra de este navegador.`,
+  transportNotes:'Detalles', ph_transport:'Ej.: 15 minutos en auto desde Playa; el colectivo para en la carretera',
+  addThing:'Agregar otro', addPerson:'Agregar otra persona', addTour:'Agregar otra idea', delEntry:'Borrar',
+  deleted:'Borrado', placeDeleted:n=>`${n} se borró`, doneSaved:n=>`${n} quedó guardado`, imported:'Importado',
+  copied:'Copiado. Pégalo en un mensaje o en un archivo.', copyFallback:'No se pudo copiar solo. Selecciona el texto de abajo y cópialo.',
+  downloaded:'Listo. Si no ves la descarga, usa Copiar.', dlFail:'Este navegador no permitió la descarga. Usa Copiar.',
+  errJson:'Eso no se puede leer. Revisa que lo copiaste completo.', errSchema:'Esto no viene de esta hoja de lugares.', errNewer:'Esto viene de una versión más nueva de la hoja.', errEmpty:'Pega primero lo que copiaste.', errRead:'No se pudo leer el archivo.',
+  importConfirm:(cur,n)=>`Esto reemplaza tus ${cur} lugares por los ${n} del archivo. Lo de ahora se borra de este navegador.`,
  },
  en:{
-  saved:'Saved on this device', savedAt:'Saved', notSaving:'This browser is not saving your work. Download or copy the JSON so you do not lose it.',
-  summary:(n,c)=>`${c} of ${n} places have all 4 sections`, of4:n=>`${n} of 4`,
-  newPlace:'New place', placeName:'Place name', moveUp:'Move up', moveDown:'Move down', del:'Delete place',
+  title:'Your places', saved:'Saves on its own', savedAt:'Saved', notSaving:'This browser is not saving. Use Back up so you do not lose your work.',
+  count:n=>n===1?'1 place':`${n} places`, tapToEdit:'Tap any row to change it.',
+  w_title:'Organize what you know, one place at a time',
+  w_1:'Write the name of a place you know well.', w_2:'Answer four short questions about it.', w_3:'Repeat with the next one. You will see everything together here.',
+  w_note:'It does not have to be complete. Everything saves on its own, on this phone or computer.', start:'Start',
+  addAnother:'Add another place', of4:n=>`${n} of 4`, none:'Not filled in', edit:'Edit', delPlace:'Delete place',
   delConfirm:n=>`Delete ${n} and everything you wrote there?`, yesDel:'Delete', cancel:'Cancel',
-  started:'Started', notStarted:'Not started',
-  s_things:'Things to do', q_things:'Restaurants, activities and places that are not for tourists.',
-  s_people:'People you know', q_people:'Who do you know there? Contacts, friends, partners.',
-  s_tours:'Tour ideas', q_tours:'What kinds of tours make sense here?',
-  s_transport:'Transport', q_transport:'What does it take to get there and move around?',
-  t_restaurant:'Restaurant', t_activity:'Activity', t_local:'Local spot (not touristy)',
+  s_things:'Things to do', s_people:'People', s_tours:'Tours', s_transport:'Transport',
+  stepOf:(i)=>`Step ${i} of 5`, back:'Back', next:'Next', finish:'Finish', close:'Back to your places', newPlace:'New place',
+  q_name:'Which place do you want to start with?', h_name:'Pick a place in the Riviera Maya that you know well. Start with the one you know best.', ph_name:'E.g. Puerto Aventuras', placeName:'Place name', needName:'Write the place name to continue.',
+  q_things:n=>`What is there to do in ${n}?`, h_things:'Think of what you would tell a friend: where to eat, what to do and the spots tourists do not know about. One per card.',
+  q_people:n=>`Who do you know in ${n}?`, h_people:'Captains, cooks, restaurant owners, guides, drivers: people you could work with or would recommend.',
+  q_tours:n=>`What tours would make sense in ${n}?`, h_tours:'With what you noted, what could you put together? If it looks like a package from the plan, pick it. If not, leave it custom.',
+  q_transport:n=>`How do people get to ${n} and move around?`, h_transport:'Tick everything that applies and note times or details that matter.',
+  tip:'If nothing comes to mind, go to the next step. You can come back any time.',
+  youNoted:'What you noted here', t_restaurant:'Restaurant', t_activity:'Activity', t_local:'Local spot',
   name:'Name', notes:'Notes', ph_thing:'E.g. seafood on the beach', ph_thingNotes:'Why it is worth it, price, hours, who would like it',
-  role:'What they do', how:'How you know them', ph_role:'E.g. boat captain', ph_how:'E.g. family friend',
-  idea:'Tour idea', details:'What it includes', fits:'Plan package', none:'Not chosen',
+  role:'What they do', how:'How you know them', ph_pname:'E.g. Don Luis', ph_role:'E.g. boat captain', ph_how:'E.g. family friend', ph_pnotes:'Phone, when they are available, how reliable they are',
+  idea:'Tour idea', details:'What it includes', fits:'Looks like', nonePkg:'Not chosen',
   ph_idea:'E.g. family cenote morning', ph_details:'Stops, length, who it is for, what you need',
   p_couples:'Couples', p_families:'Families', p_fishing:'Fishing', p_groups:'Groups', p_arrival:'Arrival and long stays', p_custom:'Custom',
   m_driver:'Private driver', m_rental:'Rental car', m_colectivo:'Colectivo', m_ado:'ADO bus', m_boat:'Boat', m_other:'Other',
-  transportNotes:'Transport notes', ph_transport:'Drive times, parking, where the colectivo stops',
-  addThing:'Add something to do', addPerson:'Add person', addTour:'Add tour idea',
-  emptyThings:'Nothing yet. Add a restaurant, an activity or a local spot.', emptyPeople:'No one yet. Add someone you know here.', emptyTours:'No ideas yet. Add one.',
-  delEntry:'Delete', deleted:'Deleted', placeDeleted:n=>`${n} deleted`, imported:'Imported', noPlaces:'No places. Add one to start.',
-  copied:'JSON copied. Paste it into a message or a file.', copyFallback:'Could not copy automatically. Select the text below and copy it.',
-  downloaded:'File downloaded. If you do not see it, use Copy JSON.', dlFail:'This browser blocked the download. Use Copy JSON.',
-  errJson:'That is not valid JSON. Check that you copied all of it.', errSchema:'This file is not a Memo places worksheet.', errNewer:'This file comes from a newer version of the worksheet.', errEmpty:'Paste the JSON first.', errRead:'Could not read the file.',
-  importConfirm:(cur,n)=>`This replaces your ${cur} current places with the ${n} places in the file. What you have now is removed from this browser.`,
+  transportNotes:'Details', ph_transport:'E.g. 15 minutes by car from Playa; the colectivo stops on the highway',
+  addThing:'Add another', addPerson:'Add another person', addTour:'Add another idea', delEntry:'Delete',
+  deleted:'Deleted', placeDeleted:n=>`${n} deleted`, doneSaved:n=>`${n} is saved`, imported:'Imported',
+  copied:'Copied. Paste it into a message or a file.', copyFallback:'Could not copy automatically. Select the text below and copy it.',
+  downloaded:'Done. If you do not see the download, use Copy.', dlFail:'This browser blocked the download. Use Copy.',
+  errJson:'That cannot be read. Check that you copied all of it.', errSchema:'This does not come from this places worksheet.', errNewer:'This comes from a newer version of the worksheet.', errEmpty:'Paste what you copied first.', errRead:'Could not read the file.',
+  importConfirm:(cur,n)=>`This replaces your ${cur} places with the ${n} in the file. What you have now is removed from this browser.`,
  }
 };
 const tr=(k,...a)=>{const v=T[currentLang()][k];return typeof v==='function'?v(...a):(v??k)};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>{try{if(crypto.randomUUID)return crypto.randomUUID()}catch(e){}return Date.now().toString(36)+Math.random().toString(36).slice(2,10)};
 const str=v=>typeof v==='string'?v:'';
+const has=s=>String(s||'').trim().length>0;
+const $=id=>document.getElementById(id);
 
-function newPlace(name){return {id:uid(),name,things:[],people:[],tours:[],transport:{modes:[],notes:''}}}
-function seed(){return {schema:SCHEMA,version:VERSION,updatedAt:new Date().toISOString(),places:SEED.map(newPlace)}}
+function newPlace(name){return {id:uid(),name:name||'',things:[],people:[],tours:[],transport:{modes:[],notes:''}}}
+function emptyData(){return {schema:SCHEMA,version:VERSION,updatedAt:new Date().toISOString(),places:[]}}
 
-// Accepts saved or imported data; returns a clean copy or an error code.
 function validate(obj){
   if(!obj||typeof obj!=='object'||obj.schema!==SCHEMA||!Array.isArray(obj.places))return {ok:false,error:'errSchema'};
   if(typeof obj.version!=='number'||obj.version>VERSION)return {ok:false,error:obj.version>VERSION?'errNewer':'errSchema'};
@@ -419,196 +406,233 @@ function validate(obj){
   return {ok:true,data:{schema:SCHEMA,version:VERSION,updatedAt:str(obj.updatedAt)||new Date().toISOString(),places}};
 }
 
+function blankEntry(s,x){
+  if(s==='things')return !has(x.name)&&!has(x.notes);
+  if(s==='people')return !has(x.name)&&!has(x.role)&&!has(x.how)&&!has(x.notes);
+  return !has(x.title)&&!has(x.details);
+}
+function started(p,s){return s==='transport'?(p.transport.modes.length>0||has(p.transport.notes)):p[s].some(x=>!blankEntry(s,x))}
+const progress=p=>SECTIONS.filter(s=>started(p,s)).length;
+const untouched=p=>progress(p)===0;
+
 let storageOk=true;
 function load(){
   try{
     localStorage.setItem('memo.test','1');localStorage.removeItem('memo.test');
     const raw=localStorage.getItem(KEY);
-    if(raw){const v=validate(JSON.parse(raw));if(v.ok)return v.data;}
+    if(raw){
+      const v=validate(JSON.parse(raw));
+      if(v.ok){
+        // The first version started with six sample places. Drop them if they were never filled in.
+        const d=v.data;
+        if(d.places.length===OLD_SEED.length&&d.places.every((p,i)=>p.name===OLD_SEED[i]&&untouched(p)))d.places=[];
+        return d;
+      }
+    }
   }catch(e){storageOk=false}
-  return seed();
+  return emptyData();
 }
 let state=load();
-let selectedId=state.places[0]?.id||null;
-let lastSaved=null, saveTimer=null, undoSnap=null, snackTimer=null, pendingImport=null;
-
-const $=id=>document.getElementById(id);
-const sel=()=>state.places.find(p=>p.id===selectedId)||null;
-const has=s=>s.trim().length>0;
-function started(p,sec){
-  if(sec==='things')return p.things.some(x=>has(x.name)||has(x.notes));
-  if(sec==='people')return p.people.some(x=>has(x.name)||has(x.role)||has(x.how)||has(x.notes));
-  if(sec==='tours')return p.tours.some(x=>has(x.title)||has(x.details));
-  return p.transport.modes.length>0||has(p.transport.notes);
-}
-const progress=p=>SECTIONS.filter(s=>started(p,s)).length;
+let view={mode:'overview'};
+let lastSaved=null, saveTimer=null, undoSnap=null, snackTimer=null, pendingImport=null, confirmDel=null;
 
 function saveNow(){
   clearTimeout(saveTimer);saveTimer=null;
   try{localStorage.setItem(KEY,JSON.stringify(state));lastSaved=new Date();storageOk=true}catch(e){storageOk=false}
-  renderStatus();
+  paintSave();
 }
 function touch(){state.updatedAt=new Date().toISOString();clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,400)}
 window.addEventListener('pagehide',()=>{if(saveTimer)saveNow()});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&saveTimer)saveNow()});
+function saveText(){
+  if(!storageOk)return tr('notSaving');
+  if(lastSaved)return tr('savedAt')+' '+lastSaved.toLocaleTimeString(currentLang()==='es'?'es-MX':'en-US',{hour:'numeric',minute:'2-digit'});
+  return tr('saved');
+}
+function paintSave(){const c=$('save-chip');if(!c)return;c.classList.toggle('bad',!storageOk);$('save-text').textContent=saveText()}
 
-function renderStatus(){
-  const chip=$('save-chip');
-  chip.classList.toggle('bad',!storageOk);
-  if(!storageOk){$('save-text').textContent=tr('notSaving')}
-  else if(lastSaved){$('save-text').textContent=tr('savedAt')+' '+lastSaved.toLocaleTimeString(currentLang()==='es'?'es-MX':'en-US',{hour:'numeric',minute:'2-digit'})}
-  else{$('save-text').textContent=tr('saved')}
-  const n=state.places.length, c=state.places.filter(p=>progress(p)===4).length;
-  $('summary').textContent=n?tr('summary',n,c):'';
-  $('place-count').textContent=String(n);
+const placeById=id=>state.places.find(p=>p.id===id);
+const label=p=>has(p.name)?p.name.trim():tr('newPlace');
+
+/* ---------- Overview ---------- */
+function rowValue(p,s){
+  let parts=[];
+  if(s==='things')parts=p.things.filter(x=>!blankEntry(s,x)).map(x=>has(x.name)?x.name.trim():tr('t_'+x.type));
+  if(s==='people')parts=p.people.filter(x=>!blankEntry(s,x)).map(x=>(has(x.name)?x.name.trim():'?')+(has(x.role)?` (${x.role.trim()})`:''));
+  if(s==='tours')parts=p.tours.filter(x=>!blankEntry(s,x)).map(x=>(has(x.title)?x.title.trim():'…')+(x.fits?` (${tr('p_'+x.fits)})`:''));
+  if(s==='transport'){parts=p.transport.modes.map(m=>tr('m_'+m));if(has(p.transport.notes))parts.push(p.transport.notes.trim().slice(0,80))}
+  return parts.length?`<span class="pc-v">${esc(parts.join(' · '))}</span>`:`<span class="pc-v none">${esc(tr('none'))}</span>`;
+}
+function renderOverview(){
+  $('data-box').hidden=false;
+  const n=state.places.length;
+  let html=`<div class="ov-head"><h1>${esc(tr('title'))}</h1><span class="save-chip" id="save-chip"><span class="dot"></span><span id="save-text"></span></span></div>`;
+  if(!n){
+    html+=`<section class="welcome"><h2>${esc(tr('w_title'))}</h2>
+      <ol class="how"><li>${esc(tr('w_1'))}</li><li>${esc(tr('w_2'))}</li><li>${esc(tr('w_3'))}</li></ol>
+      <p class="small">${esc(tr('w_note'))}</p>
+      <button type="button" class="btn btn-filled" data-act="new">${esc(tr('start'))}</button></section>`;
+  }else{
+    html+=`<p class="sub">${esc(tr('count',n))}. ${esc(tr('tapToEdit'))}</p>`;
+    html+=state.places.map(p=>`<article class="pc" id="pc-${esc(p.id)}" data-pid="${esc(p.id)}">
+      <div class="pc-top"><h2>${esc(label(p))}</h2><span class="pc-prog">${esc(tr('of4',progress(p)))}</span>
+        <button type="button" class="icon-btn" data-act="ask-del" aria-label="${esc(tr('delPlace'))}">${ic('delete','i')}</button></div>
+      ${confirmDel===p.id?`<div class="confirm" role="alert"><p>${esc(tr('delConfirm',label(p)))}</p><div class="row"><button type="button" class="btn btn-danger" data-act="del">${esc(tr('yesDel'))}</button><button type="button" class="btn btn-text" data-act="cancel-del">${esc(tr('cancel'))}</button></div></div>`:''}
+      ${STEPS.slice(1).map((s,i)=>`<button type="button" class="pc-row" data-act="goto" data-step="${i+1}"><span class="pc-l">${esc(tr('s_'+s))}</span>${rowValue(p,s)}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${SVG.forward}"/></svg></button>`).join('')}
+    </article>`).join('');
+    html+=`<div class="add-row"><button type="button" class="btn btn-filled has-icon" data-act="new">${ic('add')}${esc(tr('addAnother'))}</button></div>`;
+  }
+  $('app').innerHTML=html;paintSave();
 }
 
-function dotsHtml(p){return '<span class="dots" aria-hidden="true">'+SECTIONS.map(s=>`<i class="${started(p,s)?'on':''}"></i>`).join('')+'</span>'}
-function renderList(){
-  $('places').innerHTML=state.places.map(p=>`<li><button type="button" class="prow" data-pid="${esc(p.id)}" aria-current="${p.id===selectedId}">
-    <span class="pname">${esc(p.name)||'<i>'+esc(tr('newPlace'))+'</i>'}</span><span class="pcount">${tr('of4',progress(p))}</span>${dotsHtml(p)}</button></li>`).join('')
-    || `<li class="empty">${esc(tr('noPlaces'))}</li>`;
-}
-function refreshProgress(){
-  const p=sel(); if(!p)return;
-  const row=document.querySelector(`.prow[data-pid="${CSS.escape(p.id)}"]`);
-  if(row){row.querySelector('.pname').textContent=p.name||tr('newPlace');row.querySelector('.pcount').textContent=tr('of4',progress(p));row.querySelector('.dots').outerHTML=dotsHtml(p)}
-  SECTIONS.forEach(s=>{
-    const on=started(p,s);
-    document.querySelector(`.sec[data-sec="${s}"]`)?.classList.toggle('on',on);
-    const st=document.querySelector(`.sec[data-sec="${s}"] .sec-state`); if(st)st.textContent=on?tr('started'):tr('notStarted');
-    document.querySelector(`.pchip[data-sec="${s}"]`)?.classList.toggle('on',on);
-  });
-  renderStatus();
-}
-
-const fieldHtml=(id,label,value,{type='input',ph='',big=false}={})=>{
+/* ---------- Guide ---------- */
+const fieldHtml=(id,k,lbl,val,{type='input',ph='',big=false}={})=>{
   const ctl=type==='textarea'
-    ?`<textarea id="${id}" data-f placeholder="${esc(ph)}" rows="3">${esc(value)}</textarea>`
-    :`<input id="${id}" data-f type="text" value="${esc(value)}" placeholder="${esc(ph)}" autocomplete="off">`;
-  return `<label class="field${big?' big':''}"><span class="lbl">${esc(label)}</span>${ctl}</label>`;
+    ?`<textarea id="${id}" data-k="${k}" placeholder="${esc(ph)}" rows="3">${esc(val)}</textarea>`
+    :`<input id="${id}" data-k="${k}" type="text" value="${esc(val)}" placeholder="${esc(ph)}" autocomplete="off">`;
+  return `<label class="field${big?' big':''}"><span class="lbl">${esc(lbl)}</span>${ctl}</label>`;
 };
 const delBtn=()=>`<button type="button" class="icon-btn" data-act="del-entry" aria-label="${esc(tr('delEntry'))}">${ic('delete','i')}</button>`;
-
 function thingHtml(x){
   const radios=THING_TYPES.map(t=>`<label class="fchip"><input type="radio" name="type-${esc(x.id)}" value="${t}" data-k="type" ${x.type===t?'checked':''}><span>${ic('check')}${esc(tr('t_'+t))}</span></label>`).join('');
   return `<div class="entry" data-eid="${esc(x.id)}"><div class="entry-top"><div class="chips" role="radiogroup">${radios}</div>${delBtn()}</div>
-    <div class="grid-2">${fieldHtml('f-'+x.id+'-name',tr('name'),x.name,{ph:tr('ph_thing')}).replace('data-f','data-k="name"')}
-    ${fieldHtml('f-'+x.id+'-notes',tr('notes'),x.notes,{type:'textarea',ph:tr('ph_thingNotes')}).replace('data-f','data-k="notes"')}</div></div>`;
+    ${fieldHtml('f-'+x.id+'-name','name',tr('name'),x.name,{ph:tr('ph_thing')})}
+    ${fieldHtml('f-'+x.id+'-notes','notes',tr('notes'),x.notes,{type:'textarea',ph:tr('ph_thingNotes')})}</div>`;
 }
 function personHtml(x){
-  const f=(k,l,o)=>fieldHtml('f-'+x.id+'-'+k,l,x[k],o).replace('data-f',`data-k="${k}"`);
-  return `<div class="entry" data-eid="${esc(x.id)}"><div class="grid-2">${f('name',tr('name'))}${f('role',tr('role'),{ph:tr('ph_role')})}${f('how',tr('how'),{ph:tr('ph_how')})}${f('notes',tr('notes'),{type:'textarea'})}</div>
+  return `<div class="entry" data-eid="${esc(x.id)}"><div class="grid-2">${fieldHtml('f-'+x.id+'-name','name',tr('name'),x.name,{ph:tr('ph_pname')})}${fieldHtml('f-'+x.id+'-role','role',tr('role'),x.role,{ph:tr('ph_role')})}</div>
+    ${fieldHtml('f-'+x.id+'-how','how',tr('how'),x.how,{ph:tr('ph_how')})}
+    ${fieldHtml('f-'+x.id+'-notes','notes',tr('notes'),x.notes,{type:'textarea',ph:tr('ph_pnotes')})}
     <div class="entry-top">${delBtn()}</div></div>`;
 }
 function tourHtml(x){
-  const f=(k,l,o)=>fieldHtml('f-'+x.id+'-'+k,l,x[k],o).replace('data-f',`data-k="${k}"`);
-  const opts=[''].concat(PACKAGES).map(p=>`<option value="${p}" ${x.fits===p?'selected':''}>${esc(p?tr('p_'+p):tr('none'))}</option>`).join('');
-  return `<div class="entry" data-eid="${esc(x.id)}"><div class="grid-2">${f('title',tr('idea'),{ph:tr('ph_idea')})}
-    <label class="field sel"><span class="lbl">${esc(tr('fits'))}</span><select id="f-${esc(x.id)}-fits" data-k="fits">${opts}</select></label></div>
-    ${f('details',tr('details'),{type:'textarea',ph:tr('ph_details')})}<div class="entry-top">${delBtn()}</div></div>`;
+  const opts=[''].concat(PACKAGES).map(p=>`<option value="${p}" ${x.fits===p?'selected':''}>${esc(p?tr('p_'+p):tr('nonePkg'))}</option>`).join('');
+  return `<div class="entry" data-eid="${esc(x.id)}">${fieldHtml('f-'+x.id+'-title','title',tr('idea'),x.title,{ph:tr('ph_idea')})}
+    <label class="field sel"><span class="lbl">${esc(tr('fits'))}</span><select id="f-${esc(x.id)}-fits" data-k="fits">${opts}</select></label>
+    ${fieldHtml('f-'+x.id+'-details','details',tr('details'),x.details,{type:'textarea',ph:tr('ph_details')})}<div class="entry-top">${delBtn()}</div></div>`;
 }
-const listSec={things:['things',thingHtml,'addThing','emptyThings'],people:['people',personHtml,'addPerson','emptyPeople'],tours:['tours',tourHtml,'addTour','emptyTours']};
+const LIST={things:[thingHtml,'addThing',()=>({id:uid(),type:'restaurant',name:'',notes:''})],
+  people:[personHtml,'addPerson',()=>({id:uid(),name:'',role:'',how:'',notes:''})],
+  tours:[tourHtml,'addTour',()=>({id:uid(),title:'',details:'',fits:''})]};
 
-function secHtml(p,s,i){
-  const on=started(p,s);
-  let inner;
-  if(s==='transport'){
-    const chips=MODES.map(m=>`<label class="fchip"><input type="checkbox" value="${m}" data-mode ${p.transport.modes.includes(m)?'checked':''}><span>${ic('check')}${esc(tr('m_'+m))}</span></label>`).join('');
-    inner=`<div class="chips" role="group" aria-label="${esc(tr('s_transport'))}">${chips}</div>
-      <label class="field"><span class="lbl">${esc(tr('transportNotes'))}</span><textarea id="f-${esc(p.id)}-tnotes" data-tnotes rows="3" placeholder="${esc(tr('ph_transport'))}">${esc(p.transport.notes)}</textarea></label>`;
+function prune(p){['things','people','tours'].forEach(s=>{p[s]=p[s].filter(x=>!blankEntry(s,x))})}
+
+function renderStep(focusFirst){
+  $('data-box').hidden=true;
+  const p=placeById(view.pid);if(!p){view={mode:'overview'};return render()}
+  const i=view.step, s=STEPS[i], name=label(p);
+  if(LIST[s]&&p[s].length===0)p[s].push(LIST[s][2]());
+  let body='';
+  if(s==='name'){
+    body=fieldHtml('place-name','placename',tr('placeName'),p.name,{ph:tr('ph_name'),big:true})+`<p class="err" id="name-err" hidden>${esc(tr('needName'))}</p>`;
+  }else if(LIST[s]){
+    let ref='';
+    if(s==='tours'){
+      const bits=[];
+      const th=p.things.filter(x=>has(x.name)).map(x=>x.name.trim());
+      const pe=p.people.filter(x=>has(x.name)||has(x.role)).map(x=>(x.name.trim()||'?')+(has(x.role)?` (${x.role.trim()})`:''));
+      if(th.length)bits.push(`<p><b>${esc(tr('s_things'))}</b><br>${esc(th.join(' · '))}</p>`);
+      if(pe.length)bits.push(`<p><b>${esc(tr('s_people'))}</b><br>${esc(pe.join(' · '))}</p>`);
+      if(bits.length)ref=`<div class="ref" aria-label="${esc(tr('youNoted'))}">${bits.join('')}</div>`;
+    }
+    body=ref+`<div class="entries">${p[s].map(LIST[s][0]).join('')}</div>
+      <div><button type="button" class="btn btn-outlined has-icon" data-act="add">${ic('add')}${esc(tr(LIST[s][1]))}</button></div>`;
   }else{
-    const [key,fn,add,empty]=listSec[s];
-    const items=p[key];
-    inner=`<div class="entries">${items.length?items.map(fn).join(''):`<p class="empty">${esc(tr(empty))}</p>`}</div>
-      <button type="button" class="btn btn-outlined has-icon" data-act="add" style="justify-self:start">${ic('add')}${esc(tr(add))}</button>`;
+    const chips=MODES.map(m=>`<label class="fchip"><input type="checkbox" value="${m}" data-mode ${p.transport.modes.includes(m)?'checked':''}><span>${ic('check')}${esc(tr('m_'+m))}</span></label>`).join('');
+    body=`<div class="chips" role="group">${chips}</div>
+      <label class="field"><span class="lbl">${esc(tr('transportNotes'))}</span><textarea id="f-${esc(p.id)}-tnotes" data-tnotes rows="3" placeholder="${esc(tr('ph_transport'))}">${esc(p.transport.notes)}</textarea></label>`;
   }
-  return `<section class="sec${on?' on':''}" data-sec="${s}" id="sec-${s}" aria-labelledby="h-${s}">
-    <div class="sec-h"><span class="sec-n">${i+1}</span><h3 id="h-${s}">${esc(tr('s_'+s))}</h3><span class="sec-state">${esc(on?tr('started'):tr('notStarted'))}</span><p>${esc(tr('q_'+s))}</p></div>${inner}</section>`;
+  const q=s==='name'?tr('q_name'):tr('q_'+s,name);
+  $('app').innerHTML=`<div class="wz">
+    <div class="wz-top"><button type="button" class="icon-btn" data-act="close" aria-label="${esc(tr('close'))}">${ic('back','i')}</button>
+      <span class="wz-place">${esc(i===0?'':name)}</span><span class="wz-count">${esc(tr('stepOf',i+1))}</span></div>
+    <div class="bar" aria-hidden="true">${STEPS.map((_,j)=>`<i class="${j<=i?'on':''}"></i>`).join('')}</div>
+    <section class="step" aria-labelledby="step-q">
+      <h1 class="step-q" id="step-q" tabindex="-1">${esc(q)}</h1>
+      <p class="step-help">${esc(tr('h_'+s))}</p>
+      ${body}
+      ${i>0?`<p class="tip">${esc(tr('tip'))}</p>`:''}
+    </section>
+    <div class="wz-nav">
+      ${i>0?`<button type="button" class="btn btn-text has-icon" data-act="prev">${ic('back')}${esc(tr('back'))}</button>`:'<span></span>'}
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-filled" data-act="next">${esc(i===STEPS.length-1?tr('finish'):tr('next'))}</button>
+    </div></div>`;
+  window.scrollTo(0,0);
+  if(focusFirst){if(s==='name')$('place-name').focus();else $('step-q').focus({preventScroll:true})}
+}
+function render(focus){if(view.mode==='overview')renderOverview();else renderStep(focus)}
+
+function leaveStep(){
+  const p=placeById(view.pid);if(!p)return;prune(p);
+  // A new place that was never named or filled in is dropped when he leaves.
+  if(!has(p.name)&&untouched(p)){state.places=state.places.filter(x=>x!==p)}
+  touch();
+}
+function goStep(i){
+  const p=placeById(view.pid);prune(p);touch();
+  view={mode:'step',pid:view.pid,step:i};render(true);
+}
+function toOverview(scrollId,msg){
+  view={mode:'overview'};render();
+  if(scrollId){const el=$('pc-'+scrollId);if(el)el.scrollIntoView({block:'start'})}else window.scrollTo(0,0);
+  if(msg){undoSnap=null;snack(msg)}
 }
 
-function renderEditor(){
-  const p=sel(), ed=$('editor');
-  if(!p){ed.innerHTML=`<p class="empty">${esc(tr('noPlaces'))}</p>`;return}
-  const idx=state.places.indexOf(p);
-  const pchips=SECTIONS.map(s=>`<a class="pchip${started(p,s)?' on':''}" data-sec="${s}" href="#sec-${s}">${ic('check')}${esc(tr('s_'+s))}</a>`).join('');
-  ed.innerHTML=`<div class="ed-head">
-    <div class="ed-top">${fieldHtml('place-name',tr('placeName'),p.name,{big:true})}
-      <div class="ed-tools">
-        <button type="button" class="icon-btn" data-act="up" aria-label="${esc(tr('moveUp'))}" ${idx===0?'disabled':''}>${ic('up','i')}</button>
-        <button type="button" class="icon-btn" data-act="down" aria-label="${esc(tr('moveDown'))}" ${idx===state.places.length-1?'disabled':''}>${ic('down','i')}</button>
-        <button type="button" class="icon-btn" data-act="ask-del" aria-label="${esc(tr('del'))}">${ic('delete','i')}</button>
-      </div></div>
-    <div class="confirm" id="del-confirm" hidden><p>${esc(tr('delConfirm',p.name||tr('newPlace')))}</p>
-      <div class="row"><button type="button" class="btn btn-danger" data-act="del-place">${esc(tr('yesDel'))}</button><button type="button" class="btn btn-text" data-act="cancel-del">${esc(tr('cancel'))}</button></div></div>
-    <nav class="prog" aria-label="${esc(tr('placeName'))}">${pchips}</nav>
-  </div>${SECTIONS.map((s,i)=>secHtml(p,s,i)).join('')}`;
-}
-function renderAll(){renderList();renderEditor();renderStatus()}
-
-function snapshot(){undoSnap=JSON.stringify({state,selectedId})}
+function snapshot(){undoSnap=JSON.stringify(state)}
 function snack(msg){
   $('snack-text').textContent=msg;$('snackbar').hidden=false;$('snack-undo').hidden=!undoSnap;
   clearTimeout(snackTimer);snackTimer=setTimeout(()=>{$('snackbar').hidden=true},7000);
 }
 $('snack-close').addEventListener('click',()=>{$('snackbar').hidden=true});
 $('snack-undo').addEventListener('click',()=>{
-  if(!undoSnap)return;const u=JSON.parse(undoSnap);state=u.state;selectedId=u.selectedId;undoSnap=null;
-  $('snackbar').hidden=true;renderAll();saveNow();
+  if(!undoSnap)return;state=JSON.parse(undoSnap);undoSnap=null;$('snackbar').hidden=true;
+  if(view.mode==='step'&&!placeById(view.pid))view={mode:'overview'};
+  render();saveNow();
 });
 
-// Place list
-$('places').addEventListener('click',e=>{
-  const b=e.target.closest('.prow');if(!b)return;
-  if(saveTimer)saveNow();
-  selectedId=b.dataset.pid;renderList();renderEditor();
-  if(window.matchMedia('(max-width: 899px)').matches)$('editor').scrollIntoView({block:'start'});
+$('app').addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;
+  const card=b.closest('.pc'), pid=card?card.dataset.pid:view.pid;
+  if(act==='new'){const p=newPlace('');state.places.push(p);view={mode:'step',pid:p.id,step:0};render(true)}
+  else if(act==='goto'){view={mode:'step',pid,step:+b.dataset.step};render(true)}
+  else if(act==='ask-del'){confirmDel=pid;render();$('pc-'+pid).querySelector('.btn-danger').focus()}
+  else if(act==='cancel-del'){confirmDel=null;render()}
+  else if(act==='del'){
+    const p=placeById(pid);snapshot();state.places=state.places.filter(x=>x.id!==pid);confirmDel=null;touch();render();snack(tr('placeDeleted',label(p)));
+  }
+  else if(act==='close'){const id=view.pid;leaveStep();toOverview(placeById(id)?id:null)}
+  else if(act==='prev'){goStep(view.step-1)}
+  else if(act==='next'){
+    const p=placeById(view.pid);
+    if(view.step===0&&!has(p.name)){$('name-err').hidden=false;$('place-name').focus();return}
+    if(view.step<STEPS.length-1)goStep(view.step+1);
+    else{const id=p.id;leaveStep();saveNow();toOverview(id,tr('doneSaved',label(p)))}
+  }
+  else if(act==='add'){
+    const p=placeById(view.pid),s=STEPS[view.step];const item=LIST[s][2]();p[s].push(item);touch();renderStep(false);
+    const first=document.querySelector(`.entry[data-eid="${item.id}"] input[type=text]`);if(first){first.focus();first.scrollIntoView({block:'center'})}
+  }
+  else if(act==='del-entry'){
+    const p=placeById(view.pid),s=STEPS[view.step],eid=b.closest('.entry').dataset.eid;
+    snapshot();p[s]=p[s].filter(x=>x.id!==eid);touch();renderStep(false);snack(tr('deleted'));
+  }
 });
-$('add-place').addEventListener('click',()=>{
-  const p=newPlace('');state.places.push(p);selectedId=p.id;touch();renderAll();
-  const inp=$('place-name');inp.focus();inp.scrollIntoView({block:'center'});
-});
-
-// Editor: typing
-$('editor').addEventListener('input',e=>{
-  const p=sel();if(!p)return;const t=e.target;
-  if(t.id==='place-name'){p.name=t.value}
-  else if(t.hasAttribute('data-tnotes')){p.transport.notes=t.value}
-  else if(t.hasAttribute('data-mode')){p.transport.modes=MODES.filter(m=>$('editor').querySelector(`input[data-mode][value="${m}"]`).checked)}
+$('app').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='place-name'){e.preventDefault();document.querySelector('[data-act="next"]').click()}});
+$('app').addEventListener('input',e=>{
+  if(view.mode!=='step')return;const p=placeById(view.pid);if(!p)return;const t=e.target;
+  if(t.id==='place-name'){p.name=t.value;if(has(t.value))$('name-err').hidden=true}
+  else if(t.hasAttribute('data-tnotes'))p.transport.notes=t.value;
+  else if(t.hasAttribute('data-mode'))p.transport.modes=MODES.filter(m=>$('app').querySelector(`input[data-mode][value="${m}"]`).checked);
   else{
-    const ent=t.closest('.entry'),secEl=t.closest('.sec');if(!ent||!secEl||!t.dataset.k)return;
-    const item=p[secEl.dataset.sec].find(x=>x.id===ent.dataset.eid);if(!item)return;
-    item[t.dataset.k]=t.value;
+    const ent=t.closest('.entry');if(!ent||!t.dataset.k)return;const s=STEPS[view.step];
+    const item=p[s].find(x=>x.id===ent.dataset.eid);if(item)item[t.dataset.k]=t.value;
   }
-  touch();refreshProgress();
+  touch();
 });
-$('editor').addEventListener('change',e=>{if(e.target.matches('select,input[type=radio],input[type=checkbox]'))e.target.dispatchEvent(new Event('input',{bubbles:true}))});
+$('app').addEventListener('change',e=>{if(e.target.matches('select,input[type=radio],input[type=checkbox]'))e.target.dispatchEvent(new Event('input',{bubbles:true}))});
 
-// Editor: buttons
-$('editor').addEventListener('click',e=>{
-  const b=e.target.closest('[data-act]');if(!b)return;
-  const p=sel();if(!p)return;const act=b.dataset.act;const i=state.places.indexOf(p);
-  if(act==='up'||act==='down'){
-    const j=act==='up'?i-1:i+1;if(j<0||j>=state.places.length)return;
-    [state.places[i],state.places[j]]=[state.places[j],state.places[i]];touch();renderList();renderEditor();
-    document.querySelector(`[data-act="${act}"]`)?.focus();
-  }else if(act==='ask-del'){$('del-confirm').hidden=false;$('del-confirm').querySelector('.btn-danger').focus()}
-  else if(act==='cancel-del'){$('del-confirm').hidden=true}
-  else if(act==='del-place'){
-    snapshot();const name=p.name||tr('newPlace');state.places.splice(i,1);
-    selectedId=(state.places[i]||state.places[i-1]||{}).id||null;touch();renderAll();snack(tr('placeDeleted',name));
-  }else if(act==='add'){
-    const s=b.closest('.sec').dataset.sec;
-    const item=s==='things'?{id:uid(),type:'restaurant',name:'',notes:''}:s==='people'?{id:uid(),name:'',role:'',how:'',notes:''}:{id:uid(),title:'',details:'',fits:''};
-    p[s].push(item);touch();renderEditor();
-    const first=document.querySelector(`.entry[data-eid="${CSS.escape(item.id)}"] input[type=text]`);first?.focus();
-  }else if(act==='del-entry'){
-    const s=b.closest('.sec').dataset.sec,eid=b.closest('.entry').dataset.eid;
-    snapshot();p[s]=p[s].filter(x=>x.id!==eid);touch();renderEditor();refreshProgress();snack(tr('deleted'));
-  }
-});
-
-// Export
+/* ---------- Back up or share ---------- */
 function exportText(){if(saveTimer)saveNow();return JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2)}
 const dataMsg=(text,cls='')=>{const m=$('data-msg');m.textContent=text;m.className='msg '+cls};
 $('dl-btn').addEventListener('click',()=>{
@@ -623,12 +647,8 @@ $('dl-btn').addEventListener('click',()=>{
 $('copy-btn').addEventListener('click',()=>{
   const text=exportText();const area=$('copy-area');
   const fallback=()=>{area.value=text;area.hidden=false;area.focus();area.select();dataMsg(tr('copyFallback'),'err')};
-  try{
-    navigator.clipboard.writeText(text).then(()=>{area.hidden=true;dataMsg(tr('copied'),'ok')}).catch(fallback);
-  }catch(e){fallback()}
+  try{navigator.clipboard.writeText(text).then(()=>{area.hidden=true;dataMsg(tr('copied'),'ok')}).catch(fallback)}catch(e){fallback()}
 });
-
-// Import
 $('import-btn').addEventListener('click',()=>{const box=$('import-box');box.hidden=!box.hidden;$('import-btn').setAttribute('aria-expanded',String(!box.hidden))});
 $('file-btn').addEventListener('click',()=>$('file-input').click());
 function stageImport(text){
@@ -649,14 +669,12 @@ $('paste-check').addEventListener('click',()=>stageImport($('paste-area').value)
 $('import-no').addEventListener('click',()=>{pendingImport=null;$('import-confirm').hidden=true});
 $('import-yes').addEventListener('click',()=>{
   if(!pendingImport)return;snapshot();state=pendingImport;pendingImport=null;
-  selectedId=state.places[0]?.id||null;$('import-confirm').hidden=true;$('paste-area').value='';
-  $('import-box').hidden=true;$('import-btn').setAttribute('aria-expanded','false');
-  saveNow();renderAll();snack(tr('imported'));
+  $('import-confirm').hidden=true;$('paste-area').value='';$('import-box').hidden=true;$('import-btn').setAttribute('aria-expanded','false');
+  view={mode:'overview'};saveNow();render();snack(tr('imported'));
 });
 
-document.addEventListener('memo:lang',()=>{renderAll();if(pendingImport)$('import-confirm-text').textContent=tr('importConfirm',state.places.length,pendingImport.places.length)});
-renderAll();
-if(!storageOk)renderStatus();
+document.addEventListener('memo:lang',()=>{render(false);if(pendingImport)$('import-confirm-text').textContent=tr('importConfirm',state.places.length,pendingImport.places.length)});
+render();
 
 </script>
 </body>

@@ -99,38 +99,21 @@ svg.i.s18{width:18px;height:18px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 
 
-/* Layout: one column, a coastal route line as the hero detail, two cards for the two tools */
-.wrap{max-width:880px;margin:0 auto}
-.hero{padding-block:24px 8px;display:grid;gap:14px}
+/* Layout: one short column, title, one line, two links */
+.wrap{max-width:560px;margin:0 auto;padding-block:clamp(24px,8vh,72px) 48px;display:grid;gap:28px}
 .eyebrow{font:500 .75rem/1.3 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
-h1{font-size:clamp(2.1rem,7vw,3.2rem);line-height:1.08;font-weight:600;letter-spacing:-.015em;margin:0;text-wrap:balance;font-variation-settings:"opsz" 96}
-.lede{font-size:1.125rem;color:var(--on-surface-variant);margin:0;max-width:60ch}
-.route{margin-top:10px;background:var(--surface-container);border-radius:16px;padding:16px 18px 14px;display:grid;gap:10px}
-.route-label{font:500 .75rem/1.3 var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--on-surface-variant)}
-.stops{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;row-gap:12px}
-.stops li{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-right:22px;font-size:.875rem;color:var(--on-surface-variant)}
-.stops li::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--outline)}
-.stops li::after{content:"";position:absolute;left:14px;right:2px;top:5px;height:2px;background:var(--outline-variant)}
-.stops li:last-child::after{display:none}
-.stops li.here{color:var(--on-surface);font-weight:600}
-.stops li.here::before{background:var(--primary);border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 22%,transparent)}
-.stops small{display:block;font-weight:500;font-size:.75rem;color:var(--primary)}
-.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding-block:24px}
-.tool{display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;background:var(--surface-low);border:1px solid var(--outline-variant);border-radius:16px;padding:20px;text-decoration:none;color:inherit;min-width:0;transition:background .15s,border-color .15s}
-.tool:hover{background:var(--surface-container);border-color:var(--outline)}
-.tool-ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container)}
-.tool.alt .tool-ico{background:var(--tertiary-container);color:var(--on-tertiary-container)}
-.tool h2{margin:0;font-size:1.375rem;font-weight:600;line-height:1.25}
-.tool p{margin:0;color:var(--on-surface-variant);max-width:52ch}
-.tool .cta{justify-self:start;margin-top:6px}
-.tool:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
-.note{display:flex;gap:12px;align-items:flex-start;background:var(--secondary-container);color:var(--on-secondary-container);border-radius:12px;padding:14px 16px;font-size:.95rem}
-.note p{margin:0;max-width:70ch}
-.steps{display:grid;gap:10px;margin:20px 0 0;padding:0;list-style:none;counter-reset:s}
-.steps li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
-.steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--surface-high);color:var(--on-surface);font:500 .8rem/1 var(--mono)}
-h3{font-size:1rem;font-weight:600;margin:28px 0 0}
-footer{padding-block:32px 40px;font-size:.8125rem;color:var(--on-surface-variant)}
+.head{display:grid;gap:10px}
+h1{font-size:clamp(2rem,7vw,2.75rem);line-height:1.1;font-weight:600;letter-spacing:-.015em;margin:0;text-wrap:balance;font-variation-settings:"opsz" 96}
+.lede{font-size:1.0625rem;color:var(--on-surface-variant);margin:0;max-width:46ch}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.link{display:grid;grid-template-columns:48px 1fr 24px;align-items:center;gap:16px;padding:16px;border-radius:16px;background:var(--surface-low);border:1px solid var(--outline-variant);color:inherit;text-decoration:none;transition:background .15s,border-color .15s}
+.link:hover{background:var(--surface-container);border-color:var(--outline)}
+.link:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
+.ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--primary-container);color:var(--on-primary-container)}
+.link.alt .ico{background:var(--tertiary-container);color:var(--on-tertiary-container)}
+.link b{display:block;font-size:1.125rem;font-weight:600;line-height:1.3}
+.link small{display:block;font-size:.875rem;color:var(--on-surface-variant);margin-top:2px}
+.link .go{color:var(--on-surface-variant)}
 </style>
 </head>
 <body>
@@ -149,52 +132,17 @@ footer{padding-block:32px 40px;font-size:.8125rem;color:var(--on-surface-variant
 </header>
 <main class="gutter">
 <div class="wrap">
-  <section class="hero">
-    <span class="eyebrow"><span class="es">Para Guillermo "Memo"</span><span class="en">For Guillermo "Memo"</span></span>
-    <h1><span class="es">Hacia dónde crecer, lugar por lugar</span><span class="en">Where to grow, place by place</span></h1>
-    <p class="lede"><span class="es">Aquí hay dos cosas para revisar con calma: un plan con ideas para crecer el negocio y una hoja de trabajo para ordenar lo que ya sabes de cada lugar de la Riviera Maya.</span><span class="en">Two things to go through at your own pace: a plan with ideas for growing the business, and a worksheet to organize what you already know about each place in the Riviera Maya.</span></p>
-    <div class="route" aria-label="Riviera Maya">
-      <span class="route-label"><span class="es">Lugares para empezar</span><span class="en">Places to start with</span></span>
-      <ol class="stops">
-<li class=""><span>Playa del Carmen</span></li>
-<li class="here"><span>Puerto Aventuras<small><span class="es">Empieza aquí</span><span class="en">Start here</span></small></span></li>
-<li class=""><span>Xpu-Ha</span></li>
-<li class=""><span>Akumal</span></li>
-<li class=""><span>Tulum</span></li>
-<li class=""><span>Cobá</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="tools" aria-label="Herramientas">
-    <a class="tool" href="plan.html">
-      <span class="tool-ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></span>
-      <h2><span class="es">Plan de crecimiento</span><span class="en">Growth plan</span></h2>
-      <p><span class="es">Paquetes, tours a la medida, concierge, ideas para el blog, mejoras al sitio, riesgos y los primeros 30 días, empezando en Puerto Aventuras.</span><span class="en">Packages, custom tours, concierge, blog ideas, website fixes, risks and the first 30 days, starting in Puerto Aventuras.</span></p>
-      <span class="btn btn-tonal cta"><span class="es">Leer el plan</span><span class="en">Read the plan</span><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span>
-    </a>
-    <a class="tool alt" href="lugares.html">
-      <span class="tool-ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span>
-      <h2><span class="es">Hoja de trabajo: lugares</span><span class="en">Worksheet: places</span></h2>
-      <p><span class="es">Para cada lugar: qué hacer, a quién conoces ahí, qué tours tienen sentido y qué transporte se necesita. Agrega, cambia y regresa cuando quieras.</span><span class="en">For each place: things to do, people you know there, tours that make sense and the transport it takes. Add, change and come back any time.</span></p>
-      <span class="btn btn-tonal cta"><span class="es">Abrir la hoja</span><span class="en">Open the worksheet</span><svg class="i s18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span>
-    </a>
-  </section>
-
-  <div class="note">
-    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"/></svg>
-    <p><span class="es">Lo que escribes en la hoja se guarda solo en este teléfono o computadora. Nada se envía a ningún lado. Cuando quieras compartirlo o respaldarlo, usa <b>Descargar</b> o <b>Copiar</b> dentro de la hoja.</span><span class="en">What you write in the worksheet stays on this phone or computer. Nothing is sent anywhere. When you want to share it or back it up, use <b>Download</b> or <b>Copy</b> inside the worksheet.</span></p>
+  <div class="head">
+    <span class="eyebrow">Memo Tours and Adventures</span>
+    <h1><span class="es">Ideas para crecer, a tu ritmo</span><span class="en">Ideas for growing, at your own pace</span></h1>
+    <p class="lede"><span class="es">Lee el plan y luego ordena lo que ya sabes, lugar por lugar.</span><span class="en">Read the plan, then organize what you already know, place by place.</span></p>
   </div>
-
-  <h3><span class="es">Una forma de empezar</span><span class="en">One way to start</span></h3>
-  <ol class="steps">
-    <li><span><span class="es">Lee el plan completo una vez, sin prisa.</span><span class="en">Read the whole plan once, without rushing.</span></span></li>
-    <li><span><span class="es">Abre la hoja y llena Puerto Aventuras primero. No tiene que estar perfecto.</span><span class="en">Open the worksheet and fill in Puerto Aventuras first. It does not have to be perfect.</span></span></li>
-    <li><span><span class="es">Sigue con los lugares que mejor conoces y agrega los que falten.</span><span class="en">Move on to the places you know best and add any that are missing.</span></span></li>
-  </ol>
+  <ul class="links">
+    <li><a class="link" href="plan.html"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></span><span><b><span class="es">El plan</span><span class="en">The plan</span></b><small><span class="es">Ideas de paquetes, servicios y primeros pasos</span><span class="en">Package, service and first-step ideas</span></small></span><span class="go"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span></a></li>
+    <li><a class="link alt" href="lugares.html"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></span><span><b><span class="es">Tus lugares</span><span class="en">Your places</span></b><small><span class="es">Una guía paso a paso para ordenar tus ideas</span><span class="en">A step-by-step guide to organize your ideas</span></small></span><span class="go"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span></a></li>
+  </ul>
 </div>
 </main>
-<footer class="gutter"><div class="wrap"><span class="es">Preparado en noviembre de 2026.</span><span class="en">Prepared in November 2026.</span></div></footer>
 
 <script>
 window.PAGE_TITLES={es:'Espacio de Memo',en:"Memo's Workspace"};
